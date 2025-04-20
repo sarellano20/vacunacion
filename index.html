@@ -15,10 +15,28 @@
 
     <div class="section-title">Datos del Paciente</div>
     <div class="form-grid">
-      <input type="text" id="especie" placeholder="Especie" required />
+      <select id="especie" required>
+        <option value="">Seleccione especie</option>
+        <option value="Canino">Canino</option>
+        <option value="Felino">Felino</option>
+      </select>
+
       <input type="text" id="nombre" placeholder="Nombre" required />
-      <input type="text" id="sexo" placeholder="Sexo" required />
-      <input type="text" id="edad" placeholder="Edad" required />
+
+      <select id="sexo" required>
+        <option value="">Seleccione sexo</option>
+        <option value="Macho">Macho</option>
+        <option value="Hembra">Hembra</option>
+      </select>
+
+      <div class="edad-group">
+        <input type="number" id="edad_valor" placeholder="Edad" min="0" required />
+        <select id="edad_tipo">
+          <option value="años">Años</option>
+          <option value="meses">Meses</option>
+        </select>
+      </div>
+
       <input type="text" id="propietario" placeholder="Propietario" required />
       <input type="text" id="telefono" placeholder="Teléfono" required />
       <input type="text" id="direccion" placeholder="Dirección" required />
@@ -38,7 +56,6 @@
       <input type="text" placeholder="Fecha" id="vac_fecha" />
       <input type="text" placeholder="Vacunas aplicadas" id="vac_vacuna" />
       <input type="text" placeholder="Próxima cita" id="vac_proxima" />
-      <input type="text" placeholder="Firma del Médico Veterinario" id="vac_firma" />
     </div>
 
     <div id="form-desparasitacion" class="sub-form hidden">
@@ -47,7 +64,6 @@
       <input type="text" placeholder="Peso" id="desp_peso" />
       <input type="text" placeholder="Producto desparasitante" id="desp_producto" />
       <input type="text" placeholder="Próxima desparasitación" id="desp_proxima" />
-      <input type="text" placeholder="Firma del Médico Veterinario" id="desp_firma" />
     </div>
 
     <button onclick="generarPDF()">Generar PDF</button>
