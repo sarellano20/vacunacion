@@ -1,58 +1,60 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seleccionar tipo de reporte</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #f2f6fa;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .selector-container {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    select, button {
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 15px;
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carnet de Vacunación</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="selector-container">
-    <h2>¿Qué tipo de reporte deseas generar?</h2>
-    <select id="tipoReporte">
-      <option value="">Selecciona una opción</option>
-      <option value="vacunacion">Vacunación</option>
-      <option value="desparasitacion">Desparasitación</option>
-      <option value="ambos">Ambos</option>
-    </select>
-    <button onclick="redirigir()">Continuar</button>
-  </div>
+<div class="selector-container" id="selectorContainer">
+  <h2>Selecciona el tipo de reporte</h2>
+  <select id="tipoReporte" onchange="mostrarFormulario()">
+    <option value="">Selecciona una opción</option>
+    <option value="vacunacion">Vacunación</option>
+    <option value="desparasitacion">Desparasitación</option>
+    <option value="ambos">Ambos</option>
+  </select>
+</div>
 
-  <script>
-    function redirigir() {
-      const tipo = document.getElementById("tipoReporte").value;
-      if (!tipo) {
-        alert("Por favor selecciona una opción.");
-        return;
-      }
-      window.location.href = `formulario.html?tipo=${tipo}`;
-    }
-  </script>
+<div class="container hidden" id="formContainer">
+  <h1>Carnet de Vacunación</h1>
+  <form id="formulario">
+    <div class="section">
+      <input type="text" id="nombre" placeholder="Nombre de la mascota" required>
 
+      <select id="especie" required>
+        <option value="">Selecciona especie</option>
+        <option value="Perro">Perro</option>
+        <option value="Gato">Gato</option>
+      </select>
+
+      <select id="sexo" required>
+        <option value="">Selecciona sexo</option>
+        <option value="Macho">Macho</option>
+        <option value="Hembra">Hembra</option>
+      </select>
+
+      <div class="flex-row">
+        <input type="number" id="edad_anios" placeholder="Edad (años)" min="0">
+        <input type="number" id="edad_meses" placeholder="Edad (meses)" min="0">
+      </div>
+
+      <div class="flex-row">
+        <input type="number" id="peso" placeholder="Peso">
+        <select id="unidad_peso">
+          <option value="kg">Kg</option>
+          <option value="lb">Lb</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Agrega aquí más campos específicos si es necesario -->
+
+  </form>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
