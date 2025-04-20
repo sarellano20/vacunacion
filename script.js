@@ -1,11 +1,23 @@
-function mostrarFormulario() {
-  const selector = document.getElementById("tipoReporte");
-  const container = document.getElementById("selectorContainer");
-  const formContainer = document.getElementById("formContainer");
+// Coloca la fecha actual automáticamente
+document.getElementById("fecha_actual").value = new Date().toLocaleDateString("es-ES");
 
-  if (selector.value !== "") {
-    container.classList.add("move-up");
-    formContainer.classList.remove("hidden");
-    formContainer.classList.add("visible");
-  }
+function mostrarFormulario() {
+  const tipo = document.getElementById("tipo").value;
+  document.getElementById("tabla-vacunacion").classList.toggle("hidden", tipo !== "vacunacion");
+  document.getElementById("tabla-desparasitacion").classList.toggle("hidden", tipo !== "desparasitacion");
+}
+
+function generarPDF() {
+  const tipo = document.getElementById("tipo").value;
+  const carnet = document.getElementById("carnet");
+
+  const opt = {
+    margin: 0.5,
+    filename: `carnet_${tipo}_${document.getElementById("nombre").value || 'paciente'}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(carnet).save();
 }
