@@ -49,6 +49,11 @@ input, select {
   border-radius: 6px;
 }
 
+label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
 .selector {
   text-align: center;
   margin-top: 20px;
