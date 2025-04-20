@@ -57,9 +57,9 @@ function generarPDF() {
   const opt = {
     margin: 0,
     filename: `Carnet_${tipo}_${nombre}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
+    image: { type: 'jpeg', quality: 1.0 },
+    html2canvas: { scrollY: 0, scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
 
   html2pdf().set(opt).from(contenido).save().then(() => {
