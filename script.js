@@ -1,3 +1,4 @@
+<script>
 window.onload = () => {
   const hoy = new Date().toISOString().split('T')[0];
   ['fecha_vacuna', 'prox_vacuna', 'fecha_desp', 'prox_desp'].forEach(id => {
@@ -26,6 +27,9 @@ function mostrarFormulario() {
     else btn.textContent = "📄 Generar reporte completo";
   } else {
     form.style.display = "none";
+    datosGenerales.style.display = "none";
+    vac.style.display = "none";
+    des.style.display = "none";
   }
 }
 
@@ -80,3 +84,4 @@ function generarPDF() {
     pdf.style.display = "none";
   });
 }
+</script>
