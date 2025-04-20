@@ -10,74 +10,65 @@
   <div class="container" id="carnet">
     <div class="header">
       <img src="logo.png" alt="Logo" class="logo" />
-      <h2>REGISTRO DE VACUNACIÓN / DESPARASITACIÓN</h2>
+      <h2>REGISTRO DE VACUNAS / DESPARASITACIÓN</h2>
     </div>
 
-    <div class="section-title">Datos del Paciente</div>
     <div class="form-grid">
-      <select id="especie" required>
-        <option value="">Seleccione especie</option>
+      <div><label>Especie:</label><select id="especie">
+        <option value="">Seleccione</option>
         <option value="Canino">Canino</option>
         <option value="Felino">Felino</option>
-      </select>
-
-      <input type="text" id="nombre" placeholder="Nombre" required />
-
-      <select id="sexo" required>
-        <option value="">Seleccione sexo</option>
+      </select></div>
+      <div><label>Nombre:</label><input type="text" id="nombre" /></div>
+      <div><label>Sexo:</label><select id="sexo">
+        <option value="">Seleccione</option>
         <option value="Macho">Macho</option>
         <option value="Hembra">Hembra</option>
-      </select>
-
-      <div class="edad-group">
-        <input type="number" id="edad_valor" placeholder="Edad" min="0" required />
-        <select id="edad_tipo">
-          <option value="años">Años</option>
-          <option value="meses">Meses</option>
-        </select>
+      </select></div>
+      <div><label>Edad:</label>
+        <div class="edad-group">
+          <input type="number" id="edad_valor" placeholder="Edad" min="0" />
+          <select id="edad_tipo">
+            <option value="años">Años</option>
+            <option value="meses">Meses</option>
+          </select>
+        </div>
       </div>
-
-      <input type="text" id="propietario" placeholder="Propietario" required />
-      <input type="text" id="telefono" placeholder="Teléfono" required />
-      <input type="text" id="direccion" placeholder="Dirección" required />
-      <input type="text" id="fecha_actual" readonly />
+      <div><label>Propietario:</label><input type="text" id="propietario" /></div>
+      <div><label>Teléfono:</label><input type="text" id="telefono" /></div>
+      <div><label>Dirección:</label><input type="text" id="direccion" /></div>
+      <div><label>Fecha:</label><input type="text" id="fecha_actual" readonly /></div>
     </div>
 
-    <div class="selector">
-      <label for="tipo">Tipo de reporte:</label>
-      <select id="tipo" onchange="mostrarFormulario()">
-        <option value="vacunacion">Vacunación</option>
-        <option value="desparasitacion">Desparasitación</option>
-      </select>
+    <div class="section">
+      <h3>VACUNACIÓN</h3>
+      <table id="tabla-vacunas">
+        <thead>
+          <tr>
+            <th>Fecha</th><th>Vacunas</th><th>Próxima</th><th>Firma M.V</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button type="button" onclick="agregarFila('vacunas')">Agregar fila vacunación</button>
     </div>
 
-    <div id="form-vacunacion" class="sub-form">
-      <div class="section-title">Vacunación</div>
-      <label>Fecha de vacunación:
-        <input type="date" id="vac_fecha" />
-      </label>
-      <input type="text" placeholder="Vacunas aplicadas" id="vac_vacuna" />
-      <label>Próxima cita:
-        <input type="date" id="vac_proxima" />
-      </label>
+    <div class="section">
+      <h3>DESPARASITACIÓN</h3>
+      <table id="tabla-desparasitacion">
+        <thead>
+          <tr>
+            <th>Fecha</th><th>Peso</th><th>Producto</th><th>Próxima</th><th>Firma M.V</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button type="button" onclick="agregarFila('desparasitacion')">Agregar fila desparasitación</button>
     </div>
 
-    <div id="form-desparasitacion" class="sub-form hidden">
-      <div class="section-title">Desparasitación</div>
-      <label>Fecha de desparasitación:
-        <input type="date" id="desp_fecha" />
-      </label>
-      <div class="peso-group">
-        <input type="text" placeholder="Peso" id="desp_peso" />
-        <select id="desp_peso_tipo">
-          <option value="kg">kg</option>
-          <option value="lb">lb</option>
-        </select>
-      </div>
-      <input type="text" placeholder="Producto desparasitante" id="desp_producto" />
-      <label>Próxima desparasitación:
-        <input type="date" id="desp_proxima" />
-      </label>
+    <div class="firmabox">
+      <img src="firma.png" class="firma-img" />
+      <p><strong>Melanie Nicola Tomalá</strong><br/>Médico Veterinario</p>
     </div>
 
     <button onclick="generarPDF()">Generar PDF</button>
@@ -86,4 +77,4 @@
   <script src="html2pdf.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
-  </html>
+</html>
