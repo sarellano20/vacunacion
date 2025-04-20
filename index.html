@@ -10,18 +10,19 @@
   <div class="container" id="carnet">
     <div class="header">
       <img src="logo.png" alt="Logo" class="logo" />
-      <h2>REGISTRO DE VACUNAS / DESPARASITACIÓN</h2>
+      <h2>REGISTRO DE VACUNACIÓN / DESPARASITACIÓN</h2>
     </div>
 
+    <div class="section-title">Datos del Paciente</div>
     <div class="form-grid">
-      <label>Especie: <input type="text" id="especie" required></label>
-      <label>Nombre: <input type="text" id="nombre" required></label>
-      <label>Sexo: <input type="text" id="sexo" required></label>
-      <label>Edad: <input type="text" id="edad" required></label>
-      <label>Propietario: <input type="text" id="propietario" required></label>
-      <label>Teléfono: <input type="text" id="telefono" required></label>
-      <label>Dirección: <input type="text" id="direccion" required></label>
-      <label>Fecha Actual: <input type="text" id="fecha_actual" readonly></label>
+      <input type="text" id="especie" placeholder="Especie" required />
+      <input type="text" id="nombre" placeholder="Nombre" required />
+      <input type="text" id="sexo" placeholder="Sexo" required />
+      <input type="text" id="edad" placeholder="Edad" required />
+      <input type="text" id="propietario" placeholder="Propietario" required />
+      <input type="text" id="telefono" placeholder="Teléfono" required />
+      <input type="text" id="direccion" placeholder="Dirección" required />
+      <input type="text" id="fecha_actual" readonly />
     </div>
 
     <div class="selector">
@@ -32,47 +33,22 @@
       </select>
     </div>
 
-    <!-- Vacunación -->
-    <table id="tabla-vacunacion" class="tabla-datos">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Vacunas</th>
-          <th>Próxima Cita</th>
-          <th>Firma M.V</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="text" /></td>
-          <td><input type="text" /></td>
-          <td><input type="text" /></td>
-          <td><input type="text" /></td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="form-vacunacion" class="sub-form">
+      <div class="section-title">Vacunación</div>
+      <input type="text" placeholder="Fecha" id="vac_fecha" />
+      <input type="text" placeholder="Vacunas aplicadas" id="vac_vacuna" />
+      <input type="text" placeholder="Próxima cita" id="vac_proxima" />
+      <input type="text" placeholder="Firma del Médico Veterinario" id="vac_firma" />
+    </div>
 
-    <!-- Desparasitación -->
-    <table id="tabla-desparasitacion" class="tabla-datos hidden">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Peso</th>
-          <th>Producto Desparasitante</th>
-          <th>Próxima Desparasitación</th>
-          <th>Firma M.V</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="text" /></td>
-          <td><input type="text" /></td>
-          <td><input type="text" /></td>
-          <td><input type="text" /></td>
-          <td><input type="text" /></td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="form-desparasitacion" class="sub-form hidden">
+      <div class="section-title">Desparasitación</div>
+      <input type="text" placeholder="Fecha" id="desp_fecha" />
+      <input type="text" placeholder="Peso" id="desp_peso" />
+      <input type="text" placeholder="Producto desparasitante" id="desp_producto" />
+      <input type="text" placeholder="Próxima desparasitación" id="desp_proxima" />
+      <input type="text" placeholder="Firma del Médico Veterinario" id="desp_firma" />
+    </div>
 
     <button onclick="generarPDF()">Generar PDF</button>
   </div>
