@@ -1,106 +1,27 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f0f4f8;
-  color: #333;
-}
-
-.container {
-  max-width: 600px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-h1, h2, h3 {
-  text-align: center;
-  color: #2c3e50;
-}
-
-.section {
+.selector-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  transition: transform 0.6s ease;
 }
 
-input, select {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+.selector-container.move-up {
+  transform: translateY(-200px);
 }
 
-button {
-  margin-top: 20px;
-  padding: 12px;
-  font-size: 16px;
-  background: #2980b9;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #3498db;
-}
-
-.flex-row {
-  display: flex;
-  gap: 10px;
-}
-
-.flex-row input, .flex-row select {
-  flex: 1;
-}
-
-/* PDF Styling */
-.pdf-preview {
+.container.hidden {
   display: none;
-  width: 100%;
-  max-width: 800px;
-  padding: 30px;
-  margin: auto;
-  font-size: 14px;
-  background: white;
-  box-sizing: border-box;
 }
 
-.pdf-header {
-  text-align: center;
-  margin-bottom: 20px;
+.container.visible {
+  display: block;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-.logo {
-  width: 100px;
-  margin-bottom: 10px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 13px;
-}
-
-table, th, td {
-  border: 1px solid #333;
-  text-align: center;
-  padding: 6px;
-}
-
-.info-pdf p {
-  margin: 5px 0;
-}
-
-.firma-container {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.firma-img {
-  width: 150px;
-  margin-bottom: 5px;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
