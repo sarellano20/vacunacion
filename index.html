@@ -53,14 +53,20 @@
 
     <div id="form-vacunacion" class="sub-form">
       <div class="section-title">Vacunación</div>
-      <input type="date" id="vac_fecha" />
+      <label>Fecha de vacunación:
+        <input type="date" id="vac_fecha" />
+      </label>
       <input type="text" placeholder="Vacunas aplicadas" id="vac_vacuna" />
-      <input type="date" id="vac_proxima" />
+      <label>Próxima cita:
+        <input type="date" id="vac_proxima" />
+      </label>
     </div>
 
     <div id="form-desparasitacion" class="sub-form hidden">
       <div class="section-title">Desparasitación</div>
-      <input type="date" id="desp_fecha" />
+      <label>Fecha de desparasitación:
+        <input type="date" id="desp_fecha" />
+      </label>
       <div class="peso-group">
         <input type="text" placeholder="Peso" id="desp_peso" />
         <select id="desp_peso_tipo">
@@ -69,7 +75,9 @@
         </select>
       </div>
       <input type="text" placeholder="Producto desparasitante" id="desp_producto" />
-      <input type="date" id="desp_proxima" />
+      <label>Próxima desparasitación:
+        <input type="date" id="desp_proxima" />
+      </label>
     </div>
 
     <button onclick="generarPDF()">Generar PDF</button>
