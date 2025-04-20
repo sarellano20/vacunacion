@@ -42,7 +42,6 @@
       <input type="date" id="fecha_vacuna">
       <input type="text" id="vacuna" placeholder="Vacuna">
       <input type="date" id="prox_vacuna">
-      <input type="text" id="firma_vacuna" placeholder="Firma M.V.">
     </div>
 
     <h2>Desparasitación</h2>
@@ -57,7 +56,6 @@
       </div>
       <input type="text" id="producto" placeholder="Producto">
       <input type="date" id="prox_desp">
-      <input type="text" id="firma_desp" placeholder="Firma M.V.">
     </div>
 
     <button type="button" onclick="generarPDF()">📄 Generar PDF</button>
@@ -66,17 +64,26 @@
 
 <!-- Vista PDF -->
 <div id="pdf" class="pdf-preview">
-  <img src="logo.png" class="logo" alt="Logo" />
-  <h2>REGISTRO DE VACUNAS / DESPARASITACIÓN</h2>
-  <p>ESPECIE: <span id="out_especie"></span> | SEXO: <span id="out_sexo"></span> | EDAD: <span id="out_edad"></span></p>
-  <p>NOMBRE: <span id="out_nombre"></span> | PROPIETARIO: <span id="out_propietario"></span></p>
-  <p>TELÉFONO: <span id="out_telefono"></span> | DIRECCIÓN: <span id="out_direccion"></span></p>
+  <div class="header-pdf">
+    <img src="logo.png" class="logo-pdf" alt="Logo" />
+    <div class="header-text">
+      <h2>Sistema de Carnet de Vacunación</h2>
+      <p><strong>Clínica Veterinaria</strong></p>
+    </div>
+  </div>
 
+  <div class="info-pdf">
+    <p><strong>Nombre:</strong> <span id="out_nombre"></span></p>
+    <p><strong>Especie:</strong> <span id="out_especie"></span> | <strong>Sexo:</strong> <span id="out_sexo"></span> | <strong>Edad:</strong> <span id="out_edad"></span></p>
+    <p><strong>Propietario:</strong> <span id="out_propietario"></span></p>
+    <p><strong>Teléfono:</strong> <span id="out_telefono"></span> | <strong>Dirección:</strong> <span id="out_direccion"></span></p>
+  </div>
+
+  <h3>Detalle de Vacunación</h3>
   <table>
     <thead>
       <tr>
-        <th>FECHA</th><th>VACUNAS</th><th>PRÓX. VAC.</th><th>FIRMA M.V</th>
-        <th>FECHA</th><th>PESO</th><th>PRODUCTO DESPARASITANTE</th><th>PRÓX. DESP.</th><th>FIRMA M.V</th>
+        <th>Fecha</th><th>Vacuna</th><th>Próxima Vacuna</th>
       </tr>
     </thead>
     <tbody>
@@ -84,19 +91,30 @@
         <td id="out_fecha_vacuna"></td>
         <td id="out_vacuna"></td>
         <td id="out_prox_vacuna"></td>
-        <td id="out_firma_vacuna"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Detalle de Desparasitación</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th><th>Peso</th><th>Producto</th><th>Próxima Desparasitación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
         <td id="out_fecha_desp"></td>
         <td id="out_peso"></td>
         <td id="out_producto"></td>
         <td id="out_prox_desp"></td>
-        <td id="out_firma_desp"></td>
       </tr>
     </tbody>
   </table>
 
   <div class="firma-container">
     <img src="firma 2.png" class="firma-img" alt="Firma de la doctora">
-    <p>Melanie Nicola Tomala<br><strong>Médico Veterinario</strong></p>
+    <p class="nombre-doctora">Melanie Nicola Tomala<br><strong>Médico Veterinario</strong></p>
   </div>
 </div>
 
