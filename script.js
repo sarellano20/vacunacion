@@ -11,7 +11,7 @@ function generarPDF() {
   const nombre = document.getElementById("nombre").value || 'paciente';
 
   let contenido = document.createElement("div");
-  contenido.style.padding = "20px";
+  contenido.style.padding = "10px";
   contenido.style.fontFamily = "Arial, sans-serif";
   contenido.innerHTML = `
     <div style="text-align:center">
@@ -40,14 +40,14 @@ function generarPDF() {
     contenido.innerHTML += `
       <h3 style="text-align:center">Desparasitación</h3>
       <p><strong>Fecha:</strong> ${document.getElementById("desp_fecha").value}</p>
-      <p><strong>Peso:</strong> ${document.getElementById("desp_peso").value}</p>
+      <p><strong>Peso:</strong> ${document.getElementById("desp_peso").value} ${document.getElementById("desp_peso_tipo").value}</p>
       <p><strong>Producto:</strong> ${document.getElementById("desp_producto").value}</p>
       <p><strong>Próxima desparasitación:</strong> ${document.getElementById("desp_proxima").value}</p>
     `;
   }
 
   contenido.innerHTML += `
-    <div style="text-align:center; margin-top:40px;">
+    <div style="text-align:center; margin-top:30px;">
       <img src="firma.png" style="height:80px;" />
       <p style="margin:0;"><strong>Melanie Nicola Tomalá</strong></p>
       <p style="margin:0;">Médico Veterinario</p>
@@ -55,12 +55,17 @@ function generarPDF() {
   `;
 
   const opt = {
-    margin: 0.5,
+    margin: 0,
     filename: `Carnet_${tipo}_${nombre}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
   };
 
-  html2pdf().set(opt).from(contenido).save();
+  html2pdf().set(opt).from(contenido).save().then(() => {
+    const numero = document.getElementById("telefono").value.replace(/^0/, '');
+    const mensaje = encodeURIComponent(`Hola, adjunto el carnet de ${tipo} de ${nombre}.`);
+    const urlWhatsapp = `https://wa.me/593${numero}?text=${mensaje}`;
+    window.open(urlWhatsapp, "_blank");
+  });
 }
