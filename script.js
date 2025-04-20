@@ -1,12 +1,34 @@
+<script>
 window.onload = () => {
   const hoy = new Date().toISOString().split('T')[0];
-  document.getElementById("fecha_vacuna").value = hoy;
-  document.getElementById("fecha_desp").value = hoy;
-  document.getElementById("prox_vacuna").value = hoy;
-  document.getElementById("prox_desp").value = hoy;
+  ['fecha_vacuna', 'prox_vacuna', 'fecha_desp', 'prox_desp'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = hoy;
+  });
 };
 
+function mostrarFormulario() {
+  const tipo = document.getElementById("tipoReporte").value;
+  const form = document.getElementById("formulario");
+  const vac = document.getElementById("seccionVacunacion");
+  const des = document.getElementById("seccionDesparasitacion");
+  const btn = form.querySelector("button");
+
+  if (tipo) {
+    form.style.display = "block";
+    vac.style.display = (tipo === "vacunacion" || tipo === "ambos") ? "block" : "none";
+    des.style.display = (tipo === "desparasitacion" || tipo === "ambos") ? "block" : "none";
+
+    if (tipo === "vacunacion") btn.textContent = "📄 Generar reporte de vacunación";
+    else if (tipo === "desparasitacion") btn.textContent = "📄 Generar reporte de desparasitación";
+    else btn.textContent = "📄 Generar reporte completo";
+  } else {
+    form.style.display = "none";
+  }
+}
+
 function generarPDF() {
+  const tipo = document.getElementById("tipoReporte").value;
   const getEdadTexto = () => {
     const anios = parseInt(document.getElementById("edad_anios").value) || 0;
     const meses = parseInt(document.getElementById("edad_meses").value) || 0;
@@ -33,18 +55,22 @@ function generarPDF() {
   };
 
   for (let key in campos) {
-    document.getElementById(campos[key]).textContent = document.getElementById(key).value;
+    const el = document.getElementById(key);
+    if (el) document.getElementById(campos[key]).textContent = el.value;
   }
 
   document.getElementById("out_peso").textContent = pesoFinal;
   document.getElementById("out_edad").textContent = getEdadTexto();
+
+  document.getElementById("tablaVacunacion").style.display = (tipo === "vacunacion" || tipo === "ambos") ? "block" : "none";
+  document.getElementById("tablaDesparasitacion").style.display = (tipo === "desparasitacion" || tipo === "ambos") ? "block" : "none";
 
   const pdf = document.getElementById("pdf");
   pdf.style.display = "block";
 
   html2pdf().set({
     margin: 0.2,
-    filename: 'Carnet-Vacunacion.pdf',
+    filename: `Carnet-${tipo}.pdf`,
     image: { type: 'jpeg', quality: 1 },
     html2canvas: { scale: 3, useCORS: true },
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
@@ -52,3 +78,4 @@ function generarPDF() {
     pdf.style.display = "none";
   });
 }
+</script>
