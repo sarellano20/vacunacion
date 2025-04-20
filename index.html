@@ -1,126 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carnet de Vacunación</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seleccionar tipo de reporte</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f2f6fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .selector-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    select, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 15px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Carnet de Vacunación</h1>
-
-  <div class="section">
-    <label for="tipoReporte">¿Qué tipo de reporte deseas generar?</label>
-    <select id="tipoReporte" onchange="mostrarFormulario()">
+  <div class="selector-container">
+    <h2>¿Qué tipo de reporte deseas generar?</h2>
+    <select id="tipoReporte">
       <option value="">Selecciona una opción</option>
       <option value="vacunacion">Vacunación</option>
       <option value="desparasitacion">Desparasitación</option>
       <option value="ambos">Ambos</option>
     </select>
+    <button onclick="redirigir()">Continuar</button>
   </div>
 
-  <form id="formulario" style="display:none;">
-    <div class="section" id="datosGenerales" style="display:none;">
-      <input type="text" id="nombre" placeholder="Nombre de la mascota" required>
-      <select id="especie" required>
-        <option value="">Selecciona especie</option>
-        <option value="Perro">Perro</option>
-        <option value="Gato">Gato</option>
-      </select>
-      <select id="sexo" required>
-        <option value="">Selecciona sexo</option>
-        <option value="Macho">Macho</option>
-        <option value="Hembra">Hembra</option>
-      </select>
-      <div class="flex-row">
-        <input type="number" id="edad_anios" placeholder="Edad (años)" min="0">
-        <input type="number" id="edad_meses" placeholder="Edad (meses)" min="0" max="11">
-      </div>
-      <input type="text" id="propietario" placeholder="Propietario" required>
-      <input type="tel" id="telefono" placeholder="Teléfono">
-      <input type="text" id="direccion" placeholder="Dirección">
-    </div>
+  <script>
+    function redirigir() {
+      const tipo = document.getElementById("tipoReporte").value;
+      if (!tipo) {
+        alert("Por favor selecciona una opción.");
+        return;
+      }
+      window.location.href = `formulario.html?tipo=${tipo}`;
+    }
+  </script>
 
-    <div id="seccionVacunacion" class="section" style="display:none;">
-      <h2>Vacunación</h2>
-      <input type="date" id="fecha_vacuna">
-      <input type="text" id="vacuna" placeholder="Vacuna">
-      <input type="date" id="prox_vacuna">
-    </div>
-
-    <div id="seccionDesparasitacion" class="section" style="display:none;">
-      <h2>Desparasitación</h2>
-      <input type="date" id="fecha_desp">
-      <div class="flex-row">
-        <input type="number" id="peso" placeholder="Peso" step="0.1">
-        <select id="unidad_peso">
-          <option value="kg">kg</option>
-          <option value="lb">lb</option>
-        </select>
-      </div>
-      <input type="text" id="producto" placeholder="Producto">
-      <input type="date" id="prox_desp">
-    </div>
-
-    <button type="button" onclick="generarPDF()">📄 Generar PDF</button>
-  </form>
-</div>
-
-<!-- Vista PDF -->
-<div id="pdf" class="pdf-preview">
-  <div class="pdf-header">
-    <img src="logo.png" class="logo" alt="Logo">
-    <h2>REGISTRO DE VACUNAS / DESPARASITACIÓN</h2>
-  </div>
-  <div class="info-pdf">
-    <p><strong>Nombre:</strong> <span id="out_nombre"></span></p>
-    <p><strong>Especie:</strong> <span id="out_especie"></span> | <strong>Sexo:</strong> <span id="out_sexo"></span> | <strong>Edad:</strong> <span id="out_edad"></span></p>
-    <p><strong>Propietario:</strong> <span id="out_propietario"></span></p>
-    <p><strong>Teléfono:</strong> <span id="out_telefono"></span> | <strong>Dirección:</strong> <span id="out_direccion"></span></p>
-  </div>
-
-  <div id="tablaVacunacion" style="display:none;">
-    <h3>Vacunación</h3>
-    <table>
-      <thead>
-        <tr><th>Fecha</th><th>Vacuna</th><th>Próxima Vacuna</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td id="out_fecha_vacuna"></td>
-          <td id="out_vacuna"></td>
-          <td id="out_prox_vacuna"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div id="tablaDesparasitacion" style="display:none;">
-    <h3>Desparasitación</h3>
-    <table>
-      <thead>
-        <tr><th>Fecha</th><th>Peso</th><th>Producto</th><th>Próxima Desparasitación</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td id="out_fecha_desp"></td>
-          <td id="out_peso"></td>
-          <td id="out_producto"></td>
-          <td id="out_prox_desp"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="firma-container">
-    <img src="firma 2.png" class="firma-img" alt="Firma de la doctora">
-    <p>Melanie Nicola Tomala<br><strong>Médico Veterinario</strong></p>
-  </div>
-</div>
-
-<script src="html2pdf.bundle.min.js"></script>
-<script src="script.js"></script>
 </body>
 </html>
