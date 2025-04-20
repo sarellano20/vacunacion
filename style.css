@@ -81,11 +81,12 @@ button:hover {
   display: none;
 }
 
-.edad-group {
+.edad-group, .peso-group {
   display: flex;
   gap: 10px;
 }
 
-.edad-group input, .edad-group select {
+.edad-group input, .edad-group select,
+.peso-group input, .peso-group select {
   flex: 1;
 }
