@@ -1,4 +1,3 @@
-<script>
 window.onload = () => {
   const hoy = new Date().toISOString().split('T')[0];
   ['fecha_vacuna', 'prox_vacuna', 'fecha_desp', 'prox_desp'].forEach(id => {
@@ -10,12 +9,15 @@ window.onload = () => {
 function mostrarFormulario() {
   const tipo = document.getElementById("tipoReporte").value;
   const form = document.getElementById("formulario");
+  const datosGenerales = document.getElementById("datosGenerales");
   const vac = document.getElementById("seccionVacunacion");
   const des = document.getElementById("seccionDesparasitacion");
   const btn = form.querySelector("button");
 
   if (tipo) {
     form.style.display = "block";
+    datosGenerales.style.display = "block";
+
     vac.style.display = (tipo === "vacunacion" || tipo === "ambos") ? "block" : "none";
     des.style.display = (tipo === "desparasitacion" || tipo === "ambos") ? "block" : "none";
 
@@ -69,7 +71,7 @@ function generarPDF() {
   pdf.style.display = "block";
 
   html2pdf().set({
-    margin: 0.2,
+    margin: 0,
     filename: `Carnet-${tipo}.pdf`,
     image: { type: 'jpeg', quality: 1 },
     html2canvas: { scale: 3, useCORS: true },
@@ -78,4 +80,3 @@ function generarPDF() {
     pdf.style.display = "none";
   });
 }
-</script>
