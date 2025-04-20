@@ -11,41 +11,47 @@
 <div class="container">
   <h1>Carnet de Vacunación</h1>
 
-  <form id="formulario">
+  <div class="section">
+    <label for="tipoReporte">¿Qué tipo de reporte deseas generar?</label>
+    <select id="tipoReporte" onchange="mostrarFormulario()">
+      <option value="">Selecciona una opción</option>
+      <option value="vacunacion">Vacunación</option>
+      <option value="desparasitacion">Desparasitación</option>
+      <option value="ambos">Ambos</option>
+    </select>
+  </div>
+
+  <form id="formulario" style="display:none;">
     <div class="section">
       <input type="text" id="nombre" placeholder="Nombre de la mascota" required>
-
       <select id="especie" required>
         <option value="">Selecciona especie</option>
         <option value="Perro">Perro</option>
         <option value="Gato">Gato</option>
       </select>
-
       <select id="sexo" required>
         <option value="">Selecciona sexo</option>
         <option value="Macho">Macho</option>
         <option value="Hembra">Hembra</option>
       </select>
-
       <div class="flex-row">
         <input type="number" id="edad_anios" placeholder="Edad (años)" min="0">
         <input type="number" id="edad_meses" placeholder="Edad (meses)" min="0" max="11">
       </div>
-
       <input type="text" id="propietario" placeholder="Propietario" required>
       <input type="tel" id="telefono" placeholder="Teléfono">
       <input type="text" id="direccion" placeholder="Dirección">
     </div>
 
-    <h2>Vacunación</h2>
-    <div class="section">
+    <div id="seccionVacunacion" class="section" style="display:none;">
+      <h2>Vacunación</h2>
       <input type="date" id="fecha_vacuna">
       <input type="text" id="vacuna" placeholder="Vacuna">
       <input type="date" id="prox_vacuna">
     </div>
 
-    <h2>Desparasitación</h2>
-    <div class="section">
+    <div id="seccionDesparasitacion" class="section" style="display:none;">
+      <h2>Desparasitación</h2>
       <input type="date" id="fecha_desp">
       <div class="flex-row">
         <input type="number" id="peso" placeholder="Peso" step="0.1">
@@ -68,7 +74,6 @@
     <img src="logo.png" class="logo" alt="Logo">
     <h2>REGISTRO DE VACUNAS / DESPARASITACIÓN</h2>
   </div>
-
   <div class="info-pdf">
     <p><strong>Nombre:</strong> <span id="out_nombre"></span></p>
     <p><strong>Especie:</strong> <span id="out_especie"></span> | <strong>Sexo:</strong> <span id="out_sexo"></span> | <strong>Edad:</strong> <span id="out_edad"></span></p>
@@ -76,43 +81,38 @@
     <p><strong>Teléfono:</strong> <span id="out_telefono"></span> | <strong>Dirección:</strong> <span id="out_direccion"></span></p>
   </div>
 
-  <h3>Vacunación</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Vacuna</th>
-        <th>Próxima Vacuna</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="out_fecha_vacuna"></td>
-        <td id="out_vacuna"></td>
-        <td id="out_prox_vacuna"></td>
-      </tr>
-    </tbody>
-  </table>
+  <div id="tablaVacunacion" style="display:none;">
+    <h3>Vacunación</h3>
+    <table>
+      <thead>
+        <tr><th>Fecha</th><th>Vacuna</th><th>Próxima Vacuna</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="out_fecha_vacuna"></td>
+          <td id="out_vacuna"></td>
+          <td id="out_prox_vacuna"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <h3>Desparasitación</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Peso</th>
-        <th>Producto</th>
-        <th>Próxima Desparasitación</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td id="out_fecha_desp"></td>
-        <td id="out_peso"></td>
-        <td id="out_producto"></td>
-        <td id="out_prox_desp"></td>
-      </tr>
-    </tbody>
-  </table>
+  <div id="tablaDesparasitacion" style="display:none;">
+    <h3>Desparasitación</h3>
+    <table>
+      <thead>
+        <tr><th>Fecha</th><th>Peso</th><th>Producto</th><th>Próxima Desparasitación</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="out_fecha_desp"></td>
+          <td id="out_peso"></td>
+          <td id="out_producto"></td>
+          <td id="out_prox_desp"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="firma-container">
     <img src="firma 2.png" class="firma-img" alt="Firma de la doctora">
