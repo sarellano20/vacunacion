@@ -10,18 +10,18 @@ function generarPDF() {
   const tipo = document.getElementById("tipo").value;
   const nombre = document.getElementById("nombre").value || 'paciente';
 
-  // Crear contenido personalizado
   let contenido = document.createElement("div");
   contenido.style.padding = "20px";
+  contenido.style.fontFamily = "Arial, sans-serif";
   contenido.innerHTML = `
     <div style="text-align:center">
       <img src="logo.png" style="height:100px;" />
       <h2 style="margin:10px 0">Carnet de ${tipo === 'vacunacion' ? 'Vacunación' : 'Desparasitación'}</h2>
     </div>
     <p><strong>Especie:</strong> ${document.getElementById("especie").value}</p>
-    <p><strong>Nombre:</strong> ${document.getElementById("nombre").value}</p>
+    <p><strong>Nombre:</strong> ${nombre}</p>
     <p><strong>Sexo:</strong> ${document.getElementById("sexo").value}</p>
-    <p><strong>Edad:</strong> ${document.getElementById("edad").value}</p>
+    <p><strong>Edad:</strong> ${document.getElementById("edad_valor").value} ${document.getElementById("edad_tipo").value}</p>
     <p><strong>Propietario:</strong> ${document.getElementById("propietario").value}</p>
     <p><strong>Teléfono:</strong> ${document.getElementById("telefono").value}</p>
     <p><strong>Dirección:</strong> ${document.getElementById("direccion").value}</p>
@@ -31,20 +31,28 @@ function generarPDF() {
 
   if (tipo === "vacunacion") {
     contenido.innerHTML += `
+      <h3 style="text-align:center">Vacunación</h3>
       <p><strong>Fecha:</strong> ${document.getElementById("vac_fecha").value}</p>
       <p><strong>Vacunas:</strong> ${document.getElementById("vac_vacuna").value}</p>
       <p><strong>Próxima cita:</strong> ${document.getElementById("vac_proxima").value}</p>
-      <p><strong>Firma M.V:</strong> ${document.getElementById("vac_firma").value}</p>
     `;
   } else {
     contenido.innerHTML += `
+      <h3 style="text-align:center">Desparasitación</h3>
       <p><strong>Fecha:</strong> ${document.getElementById("desp_fecha").value}</p>
       <p><strong>Peso:</strong> ${document.getElementById("desp_peso").value}</p>
       <p><strong>Producto:</strong> ${document.getElementById("desp_producto").value}</p>
       <p><strong>Próxima desparasitación:</strong> ${document.getElementById("desp_proxima").value}</p>
-      <p><strong>Firma M.V:</strong> ${document.getElementById("desp_firma").value}</p>
     `;
   }
+
+  contenido.innerHTML += `
+    <div style="text-align:center; margin-top:40px;">
+      <img src="firma.png" style="height:80px;" />
+      <p style="margin:0;"><strong>Melanie Nicola Tomalá</strong></p>
+      <p style="margin:0;">Médico Veterinario</p>
+    </div>
+  `;
 
   const opt = {
     margin: 0.5,
