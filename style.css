@@ -80,3 +80,12 @@ button:hover {
 .hidden {
   display: none;
 }
+
+.edad-group {
+  display: flex;
+  gap: 10px;
+}
+
+.edad-group input, .edad-group select {
+  flex: 1;
+}
