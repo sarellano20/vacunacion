@@ -7,65 +7,91 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="container fade-in">
     <img src="logo.png" alt="Logo Vitavet" class="logo" />
     <h1>Carnet Veterinario</h1>
 
     <form id="formulario">
-      <h3>Datos del Paciente</h3>
-      <label>Especie:</label>
-      <select id="especie">
-        <option>Canino</option>
-        <option>Felino</option>
-      </select>
+      <div class="group">
+        <label>Especie:</label>
+        <select id="especie">
+          <option>Canino</option>
+          <option>Felino</option>
+        </select>
+      </div>
 
-      <label>Nombre:</label>
-      <input type="text" id="nombreAnimal" />
+      <div class="group">
+        <label>Nombre:</label>
+        <input type="text" id="nombreAnimal" />
+      </div>
 
-      <label>Sexo:</label>
-      <select id="sexo">
-        <option>Macho</option>
-        <option>Hembra</option>
-      </select>
+      <div class="group">
+        <label>Sexo:</label>
+        <select id="sexo">
+          <option>Macho</option>
+          <option>Hembra</option>
+        </select>
+      </div>
 
-      <label>Edad:</label>
-      <input type="text" id="edad" />
+      <div class="group">
+        <label>Edad:</label>
+        <input type="text" id="edad" />
+      </div>
 
-      <label>Propietario:</label>
-      <input type="text" id="propietario" />
+      <div class="group">
+        <label>Propietario:</label>
+        <input type="text" id="propietario" />
+      </div>
 
-      <label>Teléfono:</label>
-      <input type="text" id="telefono" />
+      <div class="group">
+        <label>Teléfono:</label>
+        <input type="text" id="telefono" />
+      </div>
 
-      <label>Dirección:</label>
-      <input type="text" id="direccion" />
+      <div class="group">
+        <label>Dirección:</label>
+        <input type="text" id="direccion" />
+      </div>
 
-      <label>Fecha Vacuna:</label>
-      <input type="date" id="fechaVac" />
+      <div class="group">
+        <label>Fecha Vacuna:</label>
+        <input type="date" id="fechaVac" />
+      </div>
 
-      <label>Vacunas:</label>
-      <input type="text" id="vacunas" />
+      <div class="group">
+        <label>Vacunas:</label>
+        <input type="text" id="vacunas" />
+      </div>
 
-      <label>Próxima vacuna:</label>
-      <input type="date" id="proxVac" />
+      <div class="group">
+        <label>Próxima vacuna:</label>
+        <input type="date" id="proxVac" />
+      </div>
 
-      <label>Fecha Desparasitación:</label>
-      <input type="date" id="fechaDesp" />
+      <div class="group">
+        <label>Fecha Desparasitación:</label>
+        <input type="date" id="fechaDesp" />
+      </div>
 
-      <label>Peso:</label>
-      <input type="text" id="peso" />
+      <div class="group">
+        <label>Peso:</label>
+        <input type="text" id="peso" />
+      </div>
 
-      <label>Producto Desparasitante:</label>
-      <input type="text" id="producto" />
+      <div class="group">
+        <label>Producto Desparasitante:</label>
+        <input type="text" id="producto" />
+      </div>
 
-      <label>Próxima desparasitación:</label>
-      <input type="date" id="proxDesp" />
+      <div class="group">
+        <label>Próxima desparasitación:</label>
+        <input type="date" id="proxDesp" />
+      </div>
 
-      <button type="button" onclick="generarPDF()">Generar PDF</button>
+      <button type="button" class="btn" onclick="generarPDF()">Generar PDF</button>
     </form>
   </div>
 
-  <!-- 🟨 Plantilla del PDF que será capturada -->
   <div id="plantilla-pdf">
     <div class="pdf-content">
       <table class="encabezado">
