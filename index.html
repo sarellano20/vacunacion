@@ -42,28 +42,29 @@
 
     <div class="section">
       <h3>VACUNACIÓN</h3>
-      <table id="tabla-vacunas">
-        <thead>
-          <tr>
-            <th>Fecha</th><th>Vacunas</th><th>Próxima</th><th>Firma M.V</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <button type="button" onclick="agregarFila('vacunas')">Agregar fila vacunación</button>
+      <div id="vacunacion-seccion">
+        <div class="fila">
+          <input type="date" placeholder="Fecha" />
+          <input type="text" placeholder="Vacuna aplicada" />
+          <input type="date" placeholder="Próxima cita" />
+          <input type="text" placeholder="Firma M.V" />
+        </div>
+      </div>
+      <button type="button" onclick="agregarCampo('vacunacion')">Agregar vacuna</button>
     </div>
 
     <div class="section">
       <h3>DESPARASITACIÓN</h3>
-      <table id="tabla-desparasitacion">
-        <thead>
-          <tr>
-            <th>Fecha</th><th>Peso</th><th>Producto</th><th>Próxima</th><th>Firma M.V</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <button type="button" onclick="agregarFila('desparasitacion')">Agregar fila desparasitación</button>
+      <div id="desparasitacion-seccion">
+        <div class="fila">
+          <input type="date" placeholder="Fecha" />
+          <input type="text" placeholder="Peso" />
+          <input type="text" placeholder="Producto" />
+          <input type="date" placeholder="Próxima cita" />
+          <input type="text" placeholder="Firma M.V" />
+        </div>
+      </div>
+      <button type="button" onclick="agregarCampo('desparasitacion')">Agregar desparasitación</button>
     </div>
 
     <div class="firmabox">
