@@ -20,53 +20,92 @@
       </select>
     </div>
 
-        <!-- ...parte superior sin cambios... -->
-
-    <!-- Formulario (igual al anterior) -->
+    <!-- Formulario inicia -->
     <form id="formulario" onsubmit="generarPDF(); return false;">
-      <!-- Todos los campos aquí igual que antes (especie, nombre, vacunación, etc.) -->
-    </form>
 
-    <!-- Plantilla oculta para el PDF -->
-    <div id="plantilla-pdf" style="display: none;">
-      <div style="font-family: Arial, sans-serif; padding: 20px; border-radius: 10px; background: #f1f8e9; border: 2px solid #a5d6a7;">
-        <img src="logo.png" style="width: 80px; display:block; margin: auto;" />
-        <h2 id="pdf-titulo" style="text-align: center; color: #388e3c;"></h2>
-        <hr>
+      <!-- 🐾 Datos generales: SIEMPRE visibles -->
+      <div id="datos-generales">
         <h3>Datos del Paciente</h3>
-        <p><strong>Especie:</strong> <span id="out-especie"></span></p>
-        <p><strong>Nombre:</strong> <span id="out-nombre"></span></p>
-        <p><strong>Sexo:</strong> <span id="out-sexo"></span></p>
-        <p><strong>Edad:</strong> <span id="out-edad"></span></p>
-        <p><strong>Propietario:</strong> <span id="out-propietario"></span></p>
-        <p><strong>Teléfono:</strong> <span id="out-telefono"></span></p>
-        <p><strong>Dirección:</strong> <span id="out-direccion"></span></p>
 
-        <div id="out-vacunacion" style="display:none;">
-          <h3>Vacunación</h3>
-          <p><strong>Fecha:</strong> <span id="out-fechaVac"></span></p>
-          <p><strong>Vacunas:</strong> <span id="out-vacunas"></span></p>
-          <p><strong>Próxima vacunación:</strong> <span id="out-proxVac"></span></p>
+        <label>Especie:</label>
+        <select id="especie" required>
+          <option value="Canino">Canino</option>
+          <option value="Felino">Felino</option>
+        </select>
+
+        <label>Nombre del animal:</label>
+        <input type="text" id="nombreAnimal" required />
+
+        <label>Sexo:</label>
+        <select id="sexo" required>
+          <option value="Macho">Macho</option>
+          <option value="Hembra">Hembra</option>
+        </select>
+
+        <label>Edad:</label>
+        <div class="peso-group">
+          <input type="number" id="edad" placeholder="Ej: 3" required />
+          <select id="unidadEdad">
+            <option value="años">Años</option>
+            <option value="meses">Meses</option>
+          </select>
         </div>
 
-        <div id="out-desparasitacion" style="display:none;">
-          <h3>Desparasitación</h3>
-          <p><strong>Fecha:</strong> <span id="out-fechaDesp"></span></p>
-          <p><strong>Peso:</strong> <span id="out-peso"></span></p>
-          <p><strong>Producto:</strong> <span id="out-producto"></span></p>
-          <p><strong>Próxima desparasitación:</strong> <span id="out-proxDesp"></span></p>
-        </div>
+        <label>Propietario:</label>
+        <input type="text" id="propietario" required />
 
-        <div style="text-align: center; margin-top: 30px;">
-          <img src="firma.png" style="width: 130px;" />
-          <p><strong>Melanie Nicola Tomala – Médico Veterinario</strong></p>
-        </div>
+        <label>Teléfono:</label>
+        <input type="text" id="telefono" required />
+
+        <label>Dirección:</label>
+        <input type="text" id="direccion" required />
       </div>
-    </div>
 
-    <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js"></script>
-    <script src="script.js"></script>
+      <!-- 💉 Sección vacunación -->
+      <div id="formulario-vacunacion" class="formulario-tipo">
+        <h3>Datos de Vacunación</h3>
+        <label>Fecha:</label>
+        <input type="date" id="fechaVac" />
 
+        <label>Vacunas:</label>
+        <input type="text" id="vacunas" />
+
+        <label>Próxima vacunación:</label>
+        <input type="date" id="proxVac" />
+      </div>
+
+      <!-- 🐛 Sección desparasitación -->
+      <div id="formulario-desparasitacion" class="formulario-tipo">
+        <h3>Datos de Desparasitación</h3>
+        <label>Fecha:</label>
+        <input type="date" id="fechaDesp" />
+
+        <label>Peso:</label>
+        <div class="peso-group">
+          <input type="number" id="peso" placeholder="Ej: 5.5" />
+          <select id="unidadPeso">
+            <option value="kg">kg</option>
+            <option value="lb">lb</option>
+          </select>
+        </div>
+
+        <label>Producto desparasitante:</label>
+        <input type="text" id="producto" />
+
+        <label>Próxima desparasitación:</label>
+        <input type="date" id="proxDesp" />
+      </div>
+
+      <button type="submit" class="btn-generar">Generar PDF</button>
+    </form>
+  </div>
+
+  <!-- Plantilla PDF oculta -->
+  <div id="plantilla-pdf" style="display: none;">
+    <!-- Aquí va la estructura PDF como te envié antes -->
+  </div>
+
+  <script src="html2pdf.bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
