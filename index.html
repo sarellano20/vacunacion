@@ -21,26 +21,65 @@
     </div>
 
     <form id="formulario" onsubmit="generarPDF(); return false;">
+
+      <!-- Datos generales -->
+      <h3>Datos del Paciente</h3>
+
+      <label>Especie:</label>
+      <select id="especie" required>
+        <option value="Canino">Canino</option>
+        <option value="Felino">Felino</option>
+      </select>
+
+      <label>Nombre del animal:</label>
+      <input type="text" id="nombreAnimal" required />
+
+      <label>Sexo:</label>
+      <select id="sexo" required>
+        <option value="Macho">Macho</option>
+        <option value="Hembra">Hembra</option>
+      </select>
+
+      <label>Edad:</label>
+      <div class="peso-group">
+        <input type="number" id="edad" placeholder="Ej: 3" required />
+        <select id="unidadEdad">
+          <option value="años">Años</option>
+          <option value="meses">Meses</option>
+        </select>
+      </div>
+
+      <label>Propietario:</label>
+      <input type="text" id="propietario" required />
+
+      <label>Teléfono:</label>
+      <input type="text" id="telefono" required />
+
+      <label>Dirección:</label>
+      <input type="text" id="direccion" required />
+
       <!-- Vacunación -->
       <div id="formulario-vacunacion" class="formulario-tipo">
+        <h3>Datos de Vacunación</h3>
         <label>Fecha:</label>
-        <input type="date" id="fechaVac" required />
+        <input type="date" id="fechaVac" />
 
         <label>Vacunas:</label>
-        <input type="text" id="vacunas" required />
+        <input type="text" id="vacunas" />
 
         <label>Próxima vacunación:</label>
-        <input type="date" id="proxVac" required />
+        <input type="date" id="proxVac" />
       </div>
 
       <!-- Desparasitación -->
       <div id="formulario-desparasitacion" class="formulario-tipo">
+        <h3>Datos de Desparasitación</h3>
         <label>Fecha:</label>
-        <input type="date" id="fechaDesp" required />
+        <input type="date" id="fechaDesp" />
 
         <label>Peso:</label>
         <div class="peso-group">
-          <input type="number" id="peso" placeholder="Ej: 5.5" required />
+          <input type="number" id="peso" placeholder="Ej: 5.5" />
           <select id="unidadPeso">
             <option value="kg">kg</option>
             <option value="lb">lb</option>
@@ -48,10 +87,10 @@
         </div>
 
         <label>Producto desparasitante:</label>
-        <input type="text" id="producto" required />
+        <input type="text" id="producto" />
 
         <label>Próxima desparasitación:</label>
-        <input type="date" id="proxDesp" required />
+        <input type="date" id="proxDesp" />
       </div>
 
       <button type="submit" class="btn-generar">Generar PDF</button>

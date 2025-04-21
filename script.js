@@ -18,7 +18,6 @@ function generarPDF() {
   card.style.padding = '20px';
   card.style.borderRadius = '10px';
   card.style.border = '2px solid #a5d6a7';
-  card.style.width = '100%';
   card.style.background = '#f1f8e9';
 
   const logo = document.createElement('img');
@@ -34,25 +33,30 @@ function generarPDF() {
   title.innerText = tipo === 'vacunacion' ? 'Carnet de Vacunación' : 'Carnet de Desparasitación';
   card.appendChild(title);
 
-  const tabla = document.createElement('table');
-  tabla.style.width = '100%';
-  tabla.style.borderCollapse = 'collapse';
-  tabla.innerHTML = tipo === 'vacunacion' ? `
-    <tr><td><strong>Fecha:</strong></td><td>${document.getElementById('fechaVac').value}</td></tr>
-    <tr><td><strong>Vacunas:</strong></td><td>${document.getElementById('vacunas').value}</td></tr>
-    <tr><td><strong>Próxima vacunación:</strong></td><td>${document.getElementById('proxVac').value}</td></tr>
-  ` : `
-    <tr><td><strong>Fecha:</strong></td><td>${document.getElementById('fechaDesp').value}</td></tr>
-    <tr><td><strong>Peso:</strong></td><td>${document.getElementById('peso').value} ${document.getElementById('unidadPeso').value}</td></tr>
-    <tr><td><strong>Producto desparasitante:</strong></td><td>${document.getElementById('producto').value}</td></tr>
-    <tr><td><strong>Próxima desparasitación:</strong></td><td>${document.getElementById('proxDesp').value}</td></tr>
+  const datos = `
+    <p><strong>Especie:</strong> ${document.getElementById('especie').value}</p>
+    <p><strong>Nombre:</strong> ${document.getElementById('nombreAnimal').value}</p>
+    <p><strong>Sexo:</strong> ${document.getElementById('sexo').value}</p>
+    <p><strong>Edad:</strong> ${document.getElementById('edad').value} ${document.getElementById('unidadEdad').value}</p>
+    <p><strong>Propietario:</strong> ${document.getElementById('propietario').value}</p>
+    <p><strong>Teléfono:</strong> ${document.getElementById('telefono').value}</p>
+    <p><strong>Dirección:</strong> ${document.getElementById('direccion').value}</p>
   `;
-  tabla.style.border = '1px solid #ccc';
-  tabla.querySelectorAll('td').forEach(td => {
-    td.style.border = '1px solid #ccc';
-    td.style.padding = '8px';
-  });
-  card.appendChild(tabla);
+
+  const datosClinicos = tipo === 'vacunacion'
+    ? `
+      <p><strong>Fecha:</strong> ${document.getElementById('fechaVac').value}</p>
+      <p><strong>Vacunas:</strong> ${document.getElementById('vacunas').value}</p>
+      <p><strong>Próxima vacunación:</strong> ${document.getElementById('proxVac').value}</p>
+    `
+    : `
+      <p><strong>Fecha:</strong> ${document.getElementById('fechaDesp').value}</p>
+      <p><strong>Peso:</strong> ${document.getElementById('peso').value} ${document.getElementById('unidadPeso').value}</p>
+      <p><strong>Producto desparasitante:</strong> ${document.getElementById('producto').value}</p>
+      <p><strong>Próxima desparasitación:</strong> ${document.getElementById('proxDesp').value}</p>
+    `;
+
+  card.innerHTML += datos + datosClinicos;
 
   const firma = document.createElement('div');
   firma.style.marginTop = '30px';
@@ -73,7 +77,7 @@ function generarPDF() {
 
   html2pdf().from(pdf).set({
     margin: 0.3,
-    filename: tipo + '_veterinario.pdf',
+    filename: tipo + '_carnet_veterinario.pdf',
     html2canvas: { scale: 2 },
     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
   }).save();
