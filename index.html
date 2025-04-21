@@ -11,147 +11,89 @@
     <img src="logo.png" alt="Logo Vitavet" class="logo" />
     <h1>Carnet Veterinario</h1>
 
-    <div class="selector">
-      <label for="tipo">Tipo de reporte:</label>
-      <select id="tipo" onchange="mostrarFormulario()">
-        <option value="">-- Seleccionar --</option>
-        <option value="vacunacion">Vacunación</option>
-        <option value="desparasitacion">Desparasitación</option>
-      </select>
-    </div>
-
     <form id="formulario">
-      <div id="datos-generales">
-        <h3>Datos del Paciente</h3>
-        <label>Especie:</label>
-        <select id="especie" required>
-          <option value="Canino">Canino</option>
-          <option value="Felino">Felino</option>
-        </select>
+      <h3>Datos del Paciente</h3>
+      <label>Especie:</label>
+      <select id="especie">
+        <option>Canino</option>
+        <option>Felino</option>
+      </select>
 
-        <label>Nombre:</label>
-        <input type="text" id="nombreAnimal" required />
+      <label>Nombre:</label>
+      <input type="text" id="nombreAnimal" />
 
-        <label>Sexo:</label>
-        <select id="sexo" required>
-          <option value="Macho">Macho</option>
-          <option value="Hembra">Hembra</option>
-        </select>
+      <label>Sexo:</label>
+      <select id="sexo">
+        <option>Macho</option>
+        <option>Hembra</option>
+      </select>
 
-        <label>Edad:</label>
-        <div class="peso-group">
-          <input type="number" id="edad" placeholder="Ej: 3" required />
-          <select id="unidadEdad">
-            <option value="años">Años</option>
-            <option value="meses">Meses</option>
-          </select>
-        </div>
+      <label>Edad:</label>
+      <input type="text" id="edad" />
 
-        <label>Propietario:</label>
-        <input type="text" id="propietario" required />
+      <label>Propietario:</label>
+      <input type="text" id="propietario" />
 
-        <label>Teléfono:</label>
-        <input type="text" id="telefono" required />
+      <label>Teléfono:</label>
+      <input type="text" id="telefono" />
 
-        <label>Dirección:</label>
-        <input type="text" id="direccion" required />
-      </div>
+      <label>Dirección:</label>
+      <input type="text" id="direccion" />
 
-      <div class="tabla-clinica">
-        <table border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
-          <thead>
-            <tr style="background: #e0f2f1;">
-              <th colspan="4">VACUNACIÓN</th>
-              <th colspan="5">DESPARASITACIÓN</th>
-            </tr>
-            <tr>
-              <th>FECHA</th>
-              <th>VACUNAS</th>
-              <th>PRÓX. VAC.</th>
-              <th>FIRMA</th>
-              <th>FECHA</th>
-              <th>PESO</th>
-              <th>PRODUCTO</th>
-              <th>PRÓX. DESP.</th>
-              <th>FIRMA</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input type="date" id="fechaVac" /></td>
-              <td><input type="text" id="vacunas" /></td>
-              <td><input type="date" id="proxVac" /></td>
-              <td><img src="firma_2.png" style="width: 80px;" /></td>
-              <td><input type="date" id="fechaDesp" /></td>
-              <td>
-                <div class="peso-group">
-                  <input type="number" id="peso" />
-                  <select id="unidadPeso">
-                    <option value="kg">kg</option>
-                    <option value="lb">lb</option>
-                  </select>
-                </div>
-              </td>
-              <td><input type="text" id="producto" /></td>
-              <td><input type="date" id="proxDesp" /></td>
-              <td><img src="firma_2.png" style="width: 80px;" /></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <label>Fecha Vacuna:</label>
+      <input type="date" id="fechaVac" />
 
-      <button type="button" class="btn-generar" onclick="generarPDF()">Generar PDF</button>
+      <label>Vacunas:</label>
+      <input type="text" id="vacunas" />
+
+      <label>Próxima vacuna:</label>
+      <input type="date" id="proxVac" />
+
+      <label>Fecha Desparasitación:</label>
+      <input type="date" id="fechaDesp" />
+
+      <label>Peso:</label>
+      <input type="text" id="peso" />
+
+      <label>Producto Desparasitante:</label>
+      <input type="text" id="producto" />
+
+      <label>Próxima desparasitación:</label>
+      <input type="date" id="proxDesp" />
+
+      <button type="button" onclick="generarPDF()">Generar PDF</button>
     </form>
   </div>
 
-  <!-- Modal de carga -->
-  <div id="loading-modal" class="loading-modal">
-    <div class="loading-content">
-      <div class="spinner"></div>
-      <p id="loading-text">Generando PDF...</p>
-    </div>
-  </div>
-
-  <!-- Plantilla PDF -->
+  <!-- 🟨 Plantilla del PDF que será capturada -->
   <div id="plantilla-pdf">
-    <div style="font-family: Arial; padding: 20px; border: 2px solid #555; max-width: 800px; margin: auto;">
-      <div style="text-align: center;">
-        <img src="logo.png" style="width: 80px;" />
-        <h2 style="margin: 10px 0;">REGISTRO DE VACUNAS/DESPARASITACIÓN</h2>
-      </div>
-      <table style="width: 100%; margin-bottom: 15px; font-size: 14px;">
+    <div class="pdf-content">
+      <table class="encabezado">
         <tr>
-          <td><strong>ESPECIE:</strong> <span id="out-especie"></span></td>
-          <td><strong>SEXO:</strong> <span id="out-sexo"></span></td>
-          <td><strong>PROPIETARIO:</strong> <span id="out-propietario"></span></td>
-        </tr>
-        <tr>
-          <td><strong>NOMBRE:</strong> <span id="out-nombre"></span></td>
-          <td><strong>EDAD:</strong> <span id="out-edad"></span></td>
-          <td><strong>TELÉFONO:</strong> <span id="out-telefono"></span></td>
-        </tr>
-        <tr>
-          <td colspan="3"><strong>DIRECCIÓN:</strong> <span id="out-direccion"></span></td>
+          <td style="width: 20%;">
+            <img src="logo.png" style="width: 80px;" />
+          </td>
+          <td>
+            <h2>REGISTRO DE VACUNAS/DESPARASITACIÓN</h2>
+            <p>ESPECIE: <span id="out-especie"></span> | SEXO: <span id="out-sexo"></span> | PROPIETARIO: <span id="out-propietario"></span></p>
+            <p>NOMBRE: <span id="out-nombre"></span> | EDAD: <span id="out-edad"></span> | TELÉFONO: <span id="out-telefono"></span></p>
+            <p>DIRECCIÓN: <span id="out-direccion"></span></p>
+          </td>
         </tr>
       </table>
 
-      <!-- TABLA EN PDF -->
-      <table border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
+      <table class="tabla-principal" border="1">
         <thead>
-          <tr style="background: #e0f2f1;">
-            <th colspan="4">VACUNACIÓN</th>
-            <th colspan="5">DESPARASITACIÓN</th>
-          </tr>
           <tr>
             <th>FECHA</th>
             <th>VACUNAS</th>
-            <th>PRÓX. VAC.</th>
-            <th>FIRMA</th>
+            <th>PROX. VAC.</th>
+            <th>FIRMA M.V</th>
             <th>FECHA</th>
             <th>PESO</th>
-            <th>PRODUCTO</th>
-            <th>PRÓX. DESP.</th>
-            <th>FIRMA</th>
+            <th>PRODUCTO DESPARASITANTE</th>
+            <th>PROX. DESP.</th>
+            <th>FIRMA M.V</th>
           </tr>
         </thead>
         <tbody>
