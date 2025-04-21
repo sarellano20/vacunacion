@@ -9,14 +9,10 @@ function mostrarFormulario() {
 }
 
 function generarPDF() {
-  const tipo = document.getElementById('tipo').value;
-  if (!tipo) return alert("Selecciona el tipo de reporte.");
-
   const nombre = document.getElementById('nombreAnimal').value;
   document.getElementById('loading-text').textContent = `Generando PDF del paciente ${nombre}...`;
   document.getElementById('loading-modal').style.display = 'flex';
 
-  // Llenar plantilla
   document.getElementById('out-especie').textContent = document.getElementById('especie').value;
   document.getElementById('out-nombre').textContent = nombre;
   document.getElementById('out-sexo').textContent = document.getElementById('sexo').value;
@@ -39,11 +35,11 @@ function generarPDF() {
   setTimeout(() => {
     html2pdf().from(document.getElementById('plantilla-pdf')).set({
       margin: 0.5,
-      filename: tipo + '_carnet_veterinario.pdf',
+      filename: nombre + '_carnet_veterinario.pdf',
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     }).save().then(() => {
       document.getElementById('loading-modal').style.display = 'none';
     });
-  }, 4000);
+  }, 6000);
 }

@@ -57,32 +57,47 @@
         <input type="text" id="direccion" required />
       </div>
 
-      <div id="formulario-vacunacion" class="formulario-tipo">
-        <h3>Datos de Vacunación</h3>
-        <label>Fecha:</label>
-        <input type="date" id="fechaVac" />
-        <label>Vacunas:</label>
-        <input type="text" id="vacunas" />
-        <label>Próxima vacunación:</label>
-        <input type="date" id="proxVac" />
-      </div>
-
-      <div id="formulario-desparasitacion" class="formulario-tipo">
-        <h3>Datos de Desparasitación</h3>
-        <label>Fecha:</label>
-        <input type="date" id="fechaDesp" />
-        <label>Peso:</label>
-        <div class="peso-group">
-          <input type="number" id="peso" placeholder="Ej: 5.5" />
-          <select id="unidadPeso">
-            <option value="kg">kg</option>
-            <option value="lb">lb</option>
-          </select>
-        </div>
-        <label>Producto desparasitante:</label>
-        <input type="text" id="producto" />
-        <label>Próxima desparasitación:</label>
-        <input type="date" id="proxDesp" />
+      <div class="tabla-clinica">
+        <table border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
+          <thead>
+            <tr style="background: #e0f2f1;">
+              <th colspan="4">VACUNACIÓN</th>
+              <th colspan="5">DESPARASITACIÓN</th>
+            </tr>
+            <tr>
+              <th>FECHA</th>
+              <th>VACUNAS</th>
+              <th>PRÓX. VAC.</th>
+              <th>FIRMA</th>
+              <th>FECHA</th>
+              <th>PESO</th>
+              <th>PRODUCTO</th>
+              <th>PRÓX. DESP.</th>
+              <th>FIRMA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="date" id="fechaVac" /></td>
+              <td><input type="text" id="vacunas" /></td>
+              <td><input type="date" id="proxVac" /></td>
+              <td><img src="firma_2.png" style="width: 80px;" /></td>
+              <td><input type="date" id="fechaDesp" /></td>
+              <td>
+                <div class="peso-group">
+                  <input type="number" id="peso" />
+                  <select id="unidadPeso">
+                    <option value="kg">kg</option>
+                    <option value="lb">lb</option>
+                  </select>
+                </div>
+              </td>
+              <td><input type="text" id="producto" /></td>
+              <td><input type="date" id="proxDesp" /></td>
+              <td><img src="firma_2.png" style="width: 80px;" /></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <button type="button" class="btn-generar" onclick="generarPDF()">Generar PDF</button>
@@ -97,7 +112,7 @@
     </div>
   </div>
 
-  <!-- Plantilla PDF (visible fuera del viewport) -->
+  <!-- Plantilla PDF -->
   <div id="plantilla-pdf">
     <div style="font-family: Arial; padding: 20px; border: 2px solid #555; max-width: 800px; margin: auto;">
       <div style="text-align: center;">
@@ -120,7 +135,8 @@
         </tr>
       </table>
 
-      <table border="1" style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: center;">
+      <!-- TABLA EN PDF -->
+      <table border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
         <thead>
           <tr style="background: #e0f2f1;">
             <th colspan="4">VACUNACIÓN</th>
@@ -143,12 +159,12 @@
             <td id="out-fechaVac"></td>
             <td id="out-vacunas"></td>
             <td id="out-proxVac"></td>
-            <td><img src="firma.png" style="width: 80px;" /></td>
+            <td><img src="firma_2.png" style="width: 80px;" /></td>
             <td id="out-fechaDesp"></td>
             <td id="out-peso"></td>
             <td id="out-producto"></td>
             <td id="out-proxDesp"></td>
-            <td><img src="firma.png" style="width: 80px;" /></td>
+            <td><img src="firma_2.png" style="width: 80px;" /></td>
           </tr>
         </tbody>
       </table>
