@@ -10,6 +10,10 @@ function mostrarFormulario() {
 
 function generarPDF() {
   const tipo = document.getElementById('tipo').value;
+  if (!tipo) {
+    alert("Por favor selecciona el tipo de reporte.");
+    return;
+  }
 
   // Datos generales
   document.getElementById('pdf-titulo').textContent = tipo === 'vacunacion' ? 'Carnet de Vacunación' : 'Carnet de Desparasitación';
@@ -21,11 +25,9 @@ function generarPDF() {
   document.getElementById('out-telefono').textContent = document.getElementById('telefono').value;
   document.getElementById('out-direccion').textContent = document.getElementById('direccion').value;
 
-  // Mostrar u ocultar secciones
   document.getElementById('out-vacunacion').style.display = tipo === 'vacunacion' ? 'block' : 'none';
   document.getElementById('out-desparasitacion').style.display = tipo === 'desparasitacion' ? 'block' : 'none';
 
-  // Datos clínicos
   if (tipo === 'vacunacion') {
     document.getElementById('out-fechaVac').textContent = document.getElementById('fechaVac').value;
     document.getElementById('out-vacunas').textContent = document.getElementById('vacunas').value;
@@ -37,7 +39,6 @@ function generarPDF() {
     document.getElementById('out-proxDesp').textContent = document.getElementById('proxDesp').value;
   }
 
-  // Generar PDF desde plantilla
   const plantilla = document.getElementById('plantilla-pdf');
   html2pdf().from(plantilla).set({
     margin: 0.3,
