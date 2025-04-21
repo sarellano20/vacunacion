@@ -16,6 +16,7 @@ function generarPDF() {
   document.getElementById('loading-text').textContent = `Generando PDF del paciente ${nombre}...`;
   document.getElementById('loading-modal').style.display = 'flex';
 
+  // Llenar plantilla
   document.getElementById('out-especie').textContent = document.getElementById('especie').value;
   document.getElementById('out-nombre').textContent = nombre;
   document.getElementById('out-sexo').textContent = document.getElementById('sexo').value;
@@ -44,5 +45,5 @@ function generarPDF() {
     }).save().then(() => {
       document.getElementById('loading-modal').style.display = 'none';
     });
-  }, 6000);
+  }, 4000);
 }

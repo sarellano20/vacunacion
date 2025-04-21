@@ -107,3 +107,12 @@ button.btn-generar:hover {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+#plantilla-pdf {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  visibility: visible;
+  opacity: 1;
+  z-index: -1;
+}
