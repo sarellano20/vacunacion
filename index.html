@@ -29,7 +29,7 @@
           <option value="Felino">Felino</option>
         </select>
 
-        <label>Nombre del animal:</label>
+        <label>Nombre:</label>
         <input type="text" id="nombreAnimal" required />
 
         <label>Sexo:</label>
@@ -89,7 +89,7 @@
     </form>
   </div>
 
-  <!-- 🌀 Modal de carga -->
+  <!-- Modal de carga -->
   <div id="loading-modal" class="loading-modal">
     <div class="loading-content">
       <div class="spinner"></div>
@@ -97,40 +97,61 @@
     </div>
   </div>
 
-  <!-- 📄 Plantilla PDF -->
-  <div id="plantilla-pdf" style="display: none;">
-    <div style="font-family: Arial, sans-serif; padding: 20px; border-radius: 10px; background: #f1f8e9; border: 2px solid #a5d6a7;">
-      <img src="logo.png" style="width: 80px; display:block; margin: auto;" />
-      <h2 id="pdf-titulo" style="text-align: center; color: #388e3c;"></h2>
-      <hr>
-      <h3>Datos del Paciente</h3>
-      <p><strong>Especie:</strong> <span id="out-especie"></span></p>
-      <p><strong>Nombre:</strong> <span id="out-nombre"></span></p>
-      <p><strong>Sexo:</strong> <span id="out-sexo"></span></p>
-      <p><strong>Edad:</strong> <span id="out-edad"></span></p>
-      <p><strong>Propietario:</strong> <span id="out-propietario"></span></p>
-      <p><strong>Teléfono:</strong> <span id="out-telefono"></span></p>
-      <p><strong>Dirección:</strong> <span id="out-direccion"></span></p>
-
-      <div id="out-vacunacion" style="display:none;">
-        <h3>Vacunación</h3>
-        <p><strong>Fecha:</strong> <span id="out-fechaVac"></span></p>
-        <p><strong>Vacunas:</strong> <span id="out-vacunas"></span></p>
-        <p><strong>Próxima vacunación:</strong> <span id="out-proxVac"></span></p>
+  <!-- Plantilla PDF con diseño clínico tipo ficha -->
+  <div id="plantilla-pdf" style="display:none;">
+    <div style="font-family: Arial; padding: 20px; border: 2px solid #555; max-width: 800px; margin: auto;">
+      <div style="text-align: center;">
+        <img src="logo.png" style="width: 80px;" />
+        <h2 style="margin: 10px 0;">REGISTRO DE VACUNAS/DESPARASITACIÓN</h2>
       </div>
+      <table style="width: 100%; margin-bottom: 15px; font-size: 14px;">
+        <tr>
+          <td><strong>ESPECIE:</strong> <span id="out-especie"></span></td>
+          <td><strong>SEXO:</strong> <span id="out-sexo"></span></td>
+          <td><strong>PROPIETARIO:</strong> <span id="out-propietario"></span></td>
+        </tr>
+        <tr>
+          <td><strong>NOMBRE:</strong> <span id="out-nombre"></span></td>
+          <td><strong>EDAD:</strong> <span id="out-edad"></span></td>
+          <td><strong>TELÉFONO:</strong> <span id="out-telefono"></span></td>
+        </tr>
+        <tr>
+          <td colspan="3"><strong>DIRECCIÓN:</strong> <span id="out-direccion"></span></td>
+        </tr>
+      </table>
 
-      <div id="out-desparasitacion" style="display:none;">
-        <h3>Desparasitación</h3>
-        <p><strong>Fecha:</strong> <span id="out-fechaDesp"></span></p>
-        <p><strong>Peso:</strong> <span id="out-peso"></span></p>
-        <p><strong>Producto:</strong> <span id="out-producto"></span></p>
-        <p><strong>Próxima desparasitación:</strong> <span id="out-proxDesp"></span></p>
-      </div>
-
-      <div style="text-align: center; margin-top: 30px;">
-        <img src="firma.png" style="width: 130px;" />
-        <p><strong>Melanie Nicola Tomala – Médico Veterinario</strong></p>
-      </div>
+      <table border="1" style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: center;">
+        <thead>
+          <tr style="background: #e0f2f1;">
+            <th colspan="4">VACUNACIÓN</th>
+            <th colspan="5">DESPARASITACIÓN</th>
+          </tr>
+          <tr>
+            <th>FECHA</th>
+            <th>VACUNAS</th>
+            <th>PRÓX. VAC.</th>
+            <th>FIRMA M.V</th>
+            <th>FECHA</th>
+            <th>PESO</th>
+            <th>PRODUCTO</th>
+            <th>PRÓX. DESP.</th>
+            <th>FIRMA M.V</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="out-fechaVac"></td>
+            <td id="out-vacunas"></td>
+            <td id="out-proxVac"></td>
+            <td><img src="firma.png" style="width: 80px;" /></td>
+            <td id="out-fechaDesp"></td>
+            <td id="out-peso"></td>
+            <td id="out-producto"></td>
+            <td id="out-proxDesp"></td>
+            <td><img src="firma.png" style="width: 80px;" /></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

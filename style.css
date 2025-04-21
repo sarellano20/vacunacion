@@ -1,96 +1,10 @@
-:root {
-  --color-principal: #4CAF50;
-  --color-secundario: #e8f5e9;
-  --borde: #c8e6c9;
-}
-
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: var(--color-secundario);
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  background: #fff;
-  max-width: 480px;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-  width: 100px;
-  display: block;
-  margin: 0 auto 10px;
-}
-
-h1, h3 {
-  text-align: center;
-  color: var(--color-principal);
-}
-
-label {
-  margin-top: 10px;
-  display: block;
-  font-weight: 600;
-  color: #333;
-}
-
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.peso-group {
-  display: flex;
-  gap: 10px;
-}
-
-.peso-group input {
-  flex: 2;
-}
-
-.peso-group select {
-  flex: 1;
-}
-
-button.btn-generar {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--color-principal);
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #43a047;
-}
-
-.selector {
-  margin-bottom: 20px;
-}
-
-.formulario-tipo {
-  display: none;
-}
-
 .loading-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.5);
   display: none;
   align-items: center;
   justify-content: center;
@@ -99,10 +13,10 @@ button:hover {
 
 .loading-content {
   background: white;
-  padding: 20px 30px;
+  padding: 25px 30px;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 
 .spinner {
