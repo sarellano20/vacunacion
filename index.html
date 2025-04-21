@@ -14,62 +14,39 @@
     </div>
 
     <div class="form-grid">
-      <div><label>Especie:</label><select id="especie">
+      <select id="especie"><option value="">Especie</option><option value="Canino">Canino</option><option value="Felino">Felino</option></select>
+      <input type="text" id="nombre" placeholder="Nombre" />
+      <select id="sexo"><option value="">Sexo</option><option value="Macho">Macho</option><option value="Hembra">Hembra</option></select>
+      <div class="edad-group">
+        <input type="number" id="edad_valor" placeholder="Edad" min="0" />
+        <select id="edad_tipo"><option value="años">Años</option><option value="meses">Meses</option></select>
+      </div>
+      <input type="text" id="propietario" placeholder="Propietario" />
+      <input type="text" id="telefono" placeholder="Teléfono" />
+      <input type="text" id="direccion" placeholder="Dirección" />
+      <input type="text" id="fecha_actual" readonly />
+    </div>
+
+    <div class="selector">
+      <label>Tipo de reporte:</label>
+      <select id="tipo" onchange="mostrarFormulario()">
         <option value="">Seleccione</option>
-        <option value="Canino">Canino</option>
-        <option value="Felino">Felino</option>
-      </select></div>
-      <div><label>Nombre:</label><input type="text" id="nombre" /></div>
-      <div><label>Sexo:</label><select id="sexo">
-        <option value="">Seleccione</option>
-        <option value="Macho">Macho</option>
-        <option value="Hembra">Hembra</option>
-      </select></div>
-      <div><label>Edad:</label>
-        <div class="edad-group">
-          <input type="number" id="edad_valor" placeholder="Edad" min="0" />
-          <select id="edad_tipo">
-            <option value="años">Años</option>
-            <option value="meses">Meses</option>
-          </select>
-        </div>
-      </div>
-      <div><label>Propietario:</label><input type="text" id="propietario" /></div>
-      <div><label>Teléfono:</label><input type="text" id="telefono" /></div>
-      <div><label>Dirección:</label><input type="text" id="direccion" /></div>
-      <div><label>Fecha:</label><input type="text" id="fecha_actual" readonly /></div>
+        <option value="vacunacion">Vacunación</option>
+        <option value="desparasitacion">Desparasitación</option>
+      </select>
     </div>
 
-    <div class="section">
-      <h3>VACUNACIÓN</h3>
-      <div id="vacunacion-seccion">
-        <div class="fila">
-          <input type="date" placeholder="Fecha" />
-          <input type="text" placeholder="Vacuna aplicada" />
-          <input type="date" placeholder="Próxima cita" />
-          <input type="text" placeholder="Firma M.V" />
-        </div>
-      </div>
-      <button type="button" onclick="agregarCampo('vacunacion')">Agregar vacuna</button>
+    <div id="form-vacunacion" class="sub-form hidden">
+      <input type="date" id="vac_fecha" placeholder="Fecha" />
+      <input type="text" id="vac_vacuna" placeholder="Vacuna aplicada" />
+      <input type="date" id="vac_proxima" placeholder="Próxima cita" />
     </div>
 
-    <div class="section">
-      <h3>DESPARASITACIÓN</h3>
-      <div id="desparasitacion-seccion">
-        <div class="fila">
-          <input type="date" placeholder="Fecha" />
-          <input type="text" placeholder="Peso" />
-          <input type="text" placeholder="Producto" />
-          <input type="date" placeholder="Próxima cita" />
-          <input type="text" placeholder="Firma M.V" />
-        </div>
-      </div>
-      <button type="button" onclick="agregarCampo('desparasitacion')">Agregar desparasitación</button>
-    </div>
-
-    <div class="firmabox">
-      <img src="firma.png" class="firma-img" />
-      <p><strong>Melanie Nicola Tomalá</strong><br/>Médico Veterinario</p>
+    <div id="form-desparasitacion" class="sub-form hidden">
+      <input type="date" id="desp_fecha" placeholder="Fecha" />
+      <input type="text" id="desp_peso" placeholder="Peso" />
+      <input type="text" id="desp_producto" placeholder="Producto desparasitante" />
+      <input type="date" id="desp_proxima" placeholder="Próxima desparasitación" />
     </div>
 
     <button onclick="generarPDF()">Generar PDF</button>
