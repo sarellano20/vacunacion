@@ -20,7 +20,6 @@
       </select>
     </div>
 
-    <!-- Formulario -->
     <form id="formulario">
       <div id="datos-generales">
         <h3>Datos del Paciente</h3>
@@ -90,7 +89,15 @@
     </form>
   </div>
 
-  <!-- Plantilla PDF -->
+  <!-- 🌀 Modal de carga -->
+  <div id="loading-modal" class="loading-modal">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p id="loading-text">Generando PDF del paciente...</p>
+    </div>
+  </div>
+
+  <!-- 📄 Plantilla PDF -->
   <div id="plantilla-pdf" style="display: none;">
     <div style="font-family: Arial, sans-serif; padding: 20px; border-radius: 10px; background: #f1f8e9; border: 2px solid #a5d6a7;">
       <img src="logo.png" style="width: 80px; display:block; margin: auto;" />
