@@ -42,6 +42,11 @@ input, select, textarea {
   border: 1px solid #ccc;
 }
 
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
 .section-title {
   background: #e8f5e9;
   padding: 10px;
