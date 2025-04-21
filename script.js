@@ -1,16 +1,17 @@
 document.getElementById("fecha_actual").value = new Date().toLocaleDateString("es-ES");
 
-function agregarFila(tipo) {
-  const tabla = document.querySelector(`#tabla-${tipo} tbody`);
-  const fila = document.createElement("tr");
+function agregarCampo(tipo) {
+  const contenedor = document.getElementById(`${tipo}-seccion`);
+  const fila = document.createElement("div");
+  fila.classList.add("fila");
 
-  if (tipo === "vacunas") {
-    fila.innerHTML = '<td><input type="date"/></td><td><input type="text"/></td><td><input type="date"/></td><td><input type="text"/></td>';
+  if (tipo === "vacunacion") {
+    fila.innerHTML = '<input type="date" /><input type="text" placeholder="Vacuna" /><input type="date" /><input type="text" placeholder="Firma M.V" />';
   } else {
-    fila.innerHTML = '<td><input type="date"/></td><td><input type="text"/></td><td><input type="text"/></td><td><input type="date"/></td><td><input type="text"/></td>';
+    fila.innerHTML = '<input type="date" /><input type="text" placeholder="Peso" /><input type="text" placeholder="Producto" /><input type="date" /><input type="text" placeholder="Firma M.V" />';
   }
 
-  tabla.appendChild(fila);
+  contenedor.appendChild(fila);
 }
 
 function generarPDF() {
