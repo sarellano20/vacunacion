@@ -1,9 +1,83 @@
+:root {
+  --verde-clinico: #4CAF50;
+  --verde-claro: #e8f5e9;
+  --gris-texto: #333;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  max-width: 650px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.logo {
+  width: 120px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+h1, h3 {
+  text-align: center;
+  color: var(--verde-clinico);
+}
+
+label {
+  font-weight: bold;
+  color: var(--gris-texto);
+  display: block;
+  margin-top: 10px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.peso-group {
+  display: flex;
+  gap: 10px;
+}
+
+button.btn-generar {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--verde-clinico);
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+button.btn-generar:hover {
+  background-color: #43a047;
+}
+
+.formulario-tipo {
+  display: none;
+}
+
+/* Modal de carga */
 .loading-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0,0,0,0.5);
   display: none;
   align-items: center;
@@ -13,20 +87,20 @@
 
 .loading-content {
   background: white;
-  padding: 25px 30px;
+  padding: 30px;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  margin: auto;
-  border: 5px solid #4CAF50;
+  border: 5px solid var(--verde-clinico);
   border-top: 5px solid transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  margin: auto;
   margin-bottom: 10px;
 }
 

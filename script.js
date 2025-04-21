@@ -16,7 +16,6 @@ function generarPDF() {
   document.getElementById('loading-text').textContent = `Generando PDF del paciente ${nombre}...`;
   document.getElementById('loading-modal').style.display = 'flex';
 
-  // Insertar datos en la plantilla
   document.getElementById('out-especie').textContent = document.getElementById('especie').value;
   document.getElementById('out-nombre').textContent = nombre;
   document.getElementById('out-sexo').textContent = document.getElementById('sexo').value;
@@ -34,10 +33,8 @@ function generarPDF() {
   document.getElementById('out-producto').textContent = document.getElementById('producto').value;
   document.getElementById('out-proxDesp').textContent = document.getElementById('proxDesp').value;
 
-  // Forzar reflow antes del timeout
   document.getElementById('plantilla-pdf').offsetHeight;
 
-  // Esperar 10 segundos para asegurar render completo
   setTimeout(() => {
     html2pdf().from(document.getElementById('plantilla-pdf')).set({
       margin: 0.5,
@@ -47,5 +44,5 @@ function generarPDF() {
     }).save().then(() => {
       document.getElementById('loading-modal').style.display = 'none';
     });
-  }, 10000);
+  }, 6000);
 }
