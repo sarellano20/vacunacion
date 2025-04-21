@@ -24,7 +24,7 @@
     .logo {
       display: block;
       margin: auto;
-      width: 100px;
+      width: 120px;
     }
     h1 {
       text-align: center;
@@ -118,7 +118,7 @@
       </div>
     </div>
     <div class="form-group"><label>Propietario:</label><input type="text" id="propietario"></div>
-    <div class="form-group"><label>Teléfono:</label><input type="text" id="telefono"></div>
+    <div class="form-group"><label>Teléfono (WhatsApp):</label><input type="text" id="telefono"></div>
     <div class="form-group"><label>Dirección:</label><input type="text" id="direccion"></div>
 
     <div class="section-title">VACUNACIÓN</div>
@@ -151,6 +151,8 @@
       const nombre = get('nombre');
       const edad = get('edad') + ' ' + get('unidadEdad');
       const fechaActual = new Date().toLocaleDateString();
+      const telefono = get('telefono').replace(/[^\d]/g, '');
+      const numero = `593${telefono.slice(-9)}`; // Ecuador format
 
       document.getElementById('loading-text').innerText = `Generando PDF del paciente ${nombre}...`;
       document.getElementById('loading').style.display = 'flex';
@@ -165,7 +167,7 @@
 
         doc.setFontSize(10);
         doc.text(`ESPECIE: ${get('especie')}   SEXO: ${get('sexo')}   PROPIETARIO: ${get('propietario')}`, 105, 70, { align: 'center' });
-        doc.text(`NOMBRE: ${nombre}   EDAD: ${edad}   TELÉFONO: ${get('telefono')}`, 105, 77, { align: 'center' });
+        doc.text(`NOMBRE: ${nombre}   EDAD: ${edad}   TELÉFONO: ${telefono}`, 105, 77, { align: 'center' });
         doc.text(`DIRECCIÓN: ${get('direccion')}`, 105, 84, { align: 'center' });
 
         doc.setFontSize(12);
@@ -199,6 +201,9 @@
 
         doc.save(`carnet_${nombre}.pdf`);
         document.getElementById('loading').style.display = 'none';
+
+        const mensaje = `Hola, estimado cliente. El reporte clínico de su mascota ${nombre} ha sido generado con éxito por nuestra clínica Vitavet. ¡Gracias por confiar en nosotros!`;
+        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`, '_blank');
       }, 5000);
     }
 
