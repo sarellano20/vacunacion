@@ -10,72 +10,36 @@ function mostrarFormulario() {
 
 function generarPDF() {
   const tipo = document.getElementById('tipo').value;
-  const pdf = document.getElementById('pdf');
-  pdf.innerHTML = '';
 
-  const card = document.createElement('div');
-  card.style.fontFamily = 'Arial, sans-serif';
-  card.style.padding = '20px';
-  card.style.borderRadius = '10px';
-  card.style.border = '2px solid #a5d6a7';
-  card.style.background = '#f1f8e9';
+  // Datos generales
+  document.getElementById('pdf-titulo').textContent = tipo === 'vacunacion' ? 'Carnet de Vacunación' : 'Carnet de Desparasitación';
+  document.getElementById('out-especie').textContent = document.getElementById('especie').value;
+  document.getElementById('out-nombre').textContent = document.getElementById('nombreAnimal').value;
+  document.getElementById('out-sexo').textContent = document.getElementById('sexo').value;
+  document.getElementById('out-edad').textContent = document.getElementById('edad').value + ' ' + document.getElementById('unidadEdad').value;
+  document.getElementById('out-propietario').textContent = document.getElementById('propietario').value;
+  document.getElementById('out-telefono').textContent = document.getElementById('telefono').value;
+  document.getElementById('out-direccion').textContent = document.getElementById('direccion').value;
 
-  const logo = document.createElement('img');
-  logo.src = 'logo.png';
-  logo.style.width = '80px';
-  logo.style.display = 'block';
-  logo.style.margin = '0 auto 10px';
-  card.appendChild(logo);
+  // Mostrar u ocultar secciones
+  document.getElementById('out-vacunacion').style.display = tipo === 'vacunacion' ? 'block' : 'none';
+  document.getElementById('out-desparasitacion').style.display = tipo === 'desparasitacion' ? 'block' : 'none';
 
-  const title = document.createElement('h2');
-  title.style.textAlign = 'center';
-  title.style.color = '#388e3c';
-  title.innerText = tipo === 'vacunacion' ? 'Carnet de Vacunación' : 'Carnet de Desparasitación';
-  card.appendChild(title);
+  // Datos clínicos
+  if (tipo === 'vacunacion') {
+    document.getElementById('out-fechaVac').textContent = document.getElementById('fechaVac').value;
+    document.getElementById('out-vacunas').textContent = document.getElementById('vacunas').value;
+    document.getElementById('out-proxVac').textContent = document.getElementById('proxVac').value;
+  } else {
+    document.getElementById('out-fechaDesp').textContent = document.getElementById('fechaDesp').value;
+    document.getElementById('out-peso').textContent = document.getElementById('peso').value + ' ' + document.getElementById('unidadPeso').value;
+    document.getElementById('out-producto').textContent = document.getElementById('producto').value;
+    document.getElementById('out-proxDesp').textContent = document.getElementById('proxDesp').value;
+  }
 
-  const datos = `
-    <p><strong>Especie:</strong> ${document.getElementById('especie').value}</p>
-    <p><strong>Nombre:</strong> ${document.getElementById('nombreAnimal').value}</p>
-    <p><strong>Sexo:</strong> ${document.getElementById('sexo').value}</p>
-    <p><strong>Edad:</strong> ${document.getElementById('edad').value} ${document.getElementById('unidadEdad').value}</p>
-    <p><strong>Propietario:</strong> ${document.getElementById('propietario').value}</p>
-    <p><strong>Teléfono:</strong> ${document.getElementById('telefono').value}</p>
-    <p><strong>Dirección:</strong> ${document.getElementById('direccion').value}</p>
-  `;
-
-  const datosClinicos = tipo === 'vacunacion'
-    ? `
-      <p><strong>Fecha:</strong> ${document.getElementById('fechaVac').value}</p>
-      <p><strong>Vacunas:</strong> ${document.getElementById('vacunas').value}</p>
-      <p><strong>Próxima vacunación:</strong> ${document.getElementById('proxVac').value}</p>
-    `
-    : `
-      <p><strong>Fecha:</strong> ${document.getElementById('fechaDesp').value}</p>
-      <p><strong>Peso:</strong> ${document.getElementById('peso').value} ${document.getElementById('unidadPeso').value}</p>
-      <p><strong>Producto desparasitante:</strong> ${document.getElementById('producto').value}</p>
-      <p><strong>Próxima desparasitación:</strong> ${document.getElementById('proxDesp').value}</p>
-    `;
-
-  card.innerHTML += datos + datosClinicos;
-
-  const firma = document.createElement('div');
-  firma.style.marginTop = '30px';
-  firma.style.textAlign = 'center';
-
-  const firmaImg = document.createElement('img');
-  firmaImg.src = 'firma.png';
-  firmaImg.style.width = '120px';
-  firma.appendChild(firmaImg);
-
-  const nombre = document.createElement('p');
-  nombre.innerText = 'Melanie Nicola Tomala – Médico Veterinario';
-  nombre.style.fontWeight = 'bold';
-  firma.appendChild(nombre);
-
-  card.appendChild(firma);
-  pdf.appendChild(card);
-
-  html2pdf().from(pdf).set({
+  // Generar PDF desde plantilla
+  const plantilla = document.getElementById('plantilla-pdf');
+  html2pdf().from(plantilla).set({
     margin: 0.3,
     filename: tipo + '_carnet_veterinario.pdf',
     html2canvas: { scale: 2 },
