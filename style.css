@@ -1,91 +1,68 @@
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #f0f4f8;
-  margin: 0;
+  background: #f4f7fa;
   padding: 20px;
 }
 
 .container {
-  background: #fff;
-  max-width: 650px;
+  max-width: 700px;
   margin: auto;
+  background: white;
   padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-  animation: slide-up 0.6s ease-out;
-}
-
-@keyframes slide-up {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
 .logo {
   display: block;
-  margin: 0 auto 20px;
+  margin: auto;
   width: 100px;
 }
 
 h1 {
   text-align: center;
-  color: #4CAF50;
-  margin-bottom: 25px;
+  color: #2e7d32;
+  margin-bottom: 30px;
 }
 
-.group {
+.form-group {
   margin-bottom: 15px;
 }
 
 label {
-  font-weight: 600;
-  color: #333;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
 }
 
 input, select {
   width: 100%;
   padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid #ccc;
-  font-size: 14px;
 }
 
-.btn {
+.section-title {
+  background: #e8f5e9;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-left: 5px solid #66bb6a;
+  margin: 25px 0 10px;
+  color: #2e7d32;
+}
+
+button {
   background: #4CAF50;
   color: white;
-  border: none;
   padding: 12px;
-  width: 100%;
-  border-radius: 10px;
+  border: none;
+  border-radius: 8px;
   font-size: 16px;
+  width: 100%;
   cursor: pointer;
 }
 
-.btn:hover {
-  background: #43a047;
-}
-
-#plantilla-pdf {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
-  z-index: -1;
-  opacity: 0;
-}
-
-.pdf-content {
-  font-family: Arial;
-  padding: 20px;
-  max-width: 900px;
-}
-
-.tabla-principal {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  text-align: center;
-}
-
-.tabla-principal th {
-  background: #e0f2f1;
+button:hover {
+  background: #388e3c;
 }
