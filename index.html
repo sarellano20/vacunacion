@@ -3,54 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Carnet Veterinario</title>
+  <title>Registro de Vacunación / Desparasitación</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container" id="carnet">
-    <div class="header">
-      <img src="logo.png" alt="Logo" class="logo" />
-      <h2>REGISTRO DE VACUNAS / DESPARASITACIÓN</h2>
-    </div>
-
-    <div class="form-grid">
-      <select id="especie"><option value="">Especie</option><option value="Canino">Canino</option><option value="Felino">Felino</option></select>
-      <input type="text" id="nombre" placeholder="Nombre" />
-      <select id="sexo"><option value="">Sexo</option><option value="Macho">Macho</option><option value="Hembra">Hembra</option></select>
-      <div class="edad-group">
-        <input type="number" id="edad_valor" placeholder="Edad" min="0" />
-        <select id="edad_tipo"><option value="años">Años</option><option value="meses">Meses</option></select>
-      </div>
-      <input type="text" id="propietario" placeholder="Propietario" />
-      <input type="text" id="telefono" placeholder="Teléfono" />
-      <input type="text" id="direccion" placeholder="Dirección" />
-      <input type="text" id="fecha_actual" readonly />
-    </div>
+  <div class="container">
+    <img src="logo.png" alt="Logo" class="logo" />
+    <h1>Registro de Vacunación / Desparasitación</h1>
 
     <div class="selector">
-      <label>Tipo de reporte:</label>
+      <label for="tipo">Selecciona el tipo de reporte:</label>
       <select id="tipo" onchange="mostrarFormulario()">
-        <option value="">Seleccione</option>
+        <option value="">-- Seleccionar --</option>
         <option value="vacunacion">Vacunación</option>
         <option value="desparasitacion">Desparasitación</option>
       </select>
     </div>
 
-    <div id="form-vacunacion" class="sub-form hidden">
-      <input type="date" id="vac_fecha" placeholder="Fecha" />
-      <input type="text" id="vac_vacuna" placeholder="Vacuna aplicada" />
-      <input type="date" id="vac_proxima" placeholder="Próxima cita" />
-    </div>
+    <form id="formulario" onsubmit="generarPDF(); return false;">
+      <div id="formulario-vacunacion" class="formulario-tipo">
+        <label>Fecha:</label>
+        <input type="date" id="fechaVac" required />
 
-    <div id="form-desparasitacion" class="sub-form hidden">
-      <input type="date" id="desp_fecha" placeholder="Fecha" />
-      <input type="text" id="desp_peso" placeholder="Peso" />
-      <input type="text" id="desp_producto" placeholder="Producto desparasitante" />
-      <input type="date" id="desp_proxima" placeholder="Próxima desparasitación" />
-    </div>
+        <label>Vacunas:</label>
+        <input type="text" id="vacunas" required />
 
-    <button onclick="generarPDF()">Generar PDF</button>
+        <label>Próxima vacunación:</label>
+        <input type="date" id="proxVac" required />
+      </div>
+
+      <div id="formulario-desparasitacion" class="formulario-tipo">
+        <label>Fecha:</label>
+        <input type="date" id="fechaDesp" required />
+
+        <label>Peso:</label>
+        <input type="number" id="peso" placeholder="Ej: 5.5" required />
+        <select id="unidadPeso">
+          <option value="kg">kg</option>
+          <option value="lb">lb</option>
+        </select>
+
+        <label>Producto desparasitante:</label>
+        <input type="text" id="producto" required />
+
+        <label>Próxima desparasitación:</label>
+        <input type="date" id="proxDesp" required />
+      </div>
+
+      <button type="submit">Generar PDF</button>
+    </form>
   </div>
+
+  <div id="pdf" style="display:none;"></div>
 
   <script src="html2pdf.bundle.min.js"></script>
   <script src="script.js"></script>

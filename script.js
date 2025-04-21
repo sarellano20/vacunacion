@@ -1,81 +1,72 @@
-document.getElementById("fecha_actual").value = new Date().toLocaleDateString("es-ES");
-
 function mostrarFormulario() {
-  const tipo = document.getElementById("tipo").value;
-  document.getElementById("form-vacunacion").classList.add("hidden");
-  document.getElementById("form-desparasitacion").classList.add("hidden");
-
-  if (tipo === "vacunacion") {
-    document.getElementById("form-vacunacion").classList.remove("hidden");
-  } else if (tipo === "desparasitacion") {
-    document.getElementById("form-desparasitacion").classList.remove("hidden");
+  const tipo = document.getElementById('tipo').value;
+  document.querySelectorAll('.formulario-tipo').forEach(f => f.style.display = 'none');
+  if (tipo === 'vacunacion') {
+    document.getElementById('formulario-vacunacion').style.display = 'block';
+  } else if (tipo === 'desparasitacion') {
+    document.getElementById('formulario-desparasitacion').style.display = 'block';
   }
 }
 
 function generarPDF() {
-  const tipo = document.getElementById("tipo").value;
-  const nombre = document.getElementById("nombre").value || "Paciente";
+  const tipo = document.getElementById('tipo').value;
+  const pdf = document.getElementById('pdf');
+  pdf.innerHTML = '';
 
-  const contenido = document.createElement("div");
-  contenido.style.padding = "30px";
-  contenido.style.fontFamily = "Arial, sans-serif";
-  contenido.innerHTML = `
-    <div style="text-align:center;">
-      <img src="logo.png" style="height:100px;" />
-      <h2 style="margin:10px 0;">Carnet de ${tipo === 'vacunacion' ? 'Vacunación' : 'Desparasitación'}</h2>
-    </div>
-    <table border="1" cellspacing="0" cellpadding="6" width="100%" style="margin-top:20px;">
-      <tr><th colspan="2">Datos del Paciente</th></tr>
-      <tr><td><strong>Especie:</strong></td><td>${document.getElementById("especie").value}</td></tr>
-      <tr><td><strong>Nombre:</strong></td><td>${nombre}</td></tr>
-      <tr><td><strong>Sexo:</strong></td><td>${document.getElementById("sexo").value}</td></tr>
-      <tr><td><strong>Edad:</strong></td><td>${document.getElementById("edad_valor").value} ${document.getElementById("edad_tipo").value}</td></tr>
-      <tr><td><strong>Propietario:</strong></td><td>${document.getElementById("propietario").value}</td></tr>
-      <tr><td><strong>Teléfono:</strong></td><td>${document.getElementById("telefono").value}</td></tr>
-      <tr><td><strong>Dirección:</strong></td><td>${document.getElementById("direccion").value}</td></tr>
-      <tr><td><strong>Fecha de emisión:</strong></td><td>${document.getElementById("fecha_actual").value}</td></tr>
-    </table>
-  `;
+  const container = document.createElement('div');
+  container.style.fontFamily = 'Arial, sans-serif';
+  container.style.border = '1px solid #ccc';
+  container.style.padding = '20px';
+  container.style.width = '100%';
+  container.style.textAlign = 'left';
 
-  if (tipo === "vacunacion") {
-    contenido.innerHTML += `
-      <h3 style="margin-top:30px;">Vacunación</h3>
-      <table border="1" cellspacing="0" cellpadding="6" width="100%">
-        <tr><th>Fecha</th><th>Vacuna</th><th>Próxima Cita</th></tr>
-        <tr>
-          <td>${document.getElementById("vac_fecha").value}</td>
-          <td>${document.getElementById("vac_vacuna").value}</td>
-          <td>${document.getElementById("vac_proxima").value}</td>
-        </tr>
-      </table>
+  const logo = document.createElement('img');
+  logo.src = 'logo.png';
+  logo.style.width = '100px';
+  logo.style.marginBottom = '10px';
+  container.appendChild(logo);
+
+  const title = document.createElement('h2');
+  title.innerText = tipo === 'vacunacion' ? 'Carnet de Vacunación' : 'Carnet de Desparasitación';
+  container.appendChild(title);
+
+  const table = document.createElement('table');
+  table.style.width = '100%';
+  table.style.borderCollapse = 'collapse';
+  table.innerHTML = tipo === 'vacunacion'
+    ? `
+    <tr><td><strong>Fecha:</strong></td><td>${document.getElementById('fechaVac').value}</td></tr>
+    <tr><td><strong>Vacunas:</strong></td><td>${document.getElementById('vacunas').value}</td></tr>
+    <tr><td><strong>Próxima vacunación:</strong></td><td>${document.getElementById('proxVac').value}</td></tr>
+    `
+    : `
+    <tr><td><strong>Fecha:</strong></td><td>${document.getElementById('fechaDesp').value}</td></tr>
+    <tr><td><strong>Peso:</strong></td><td>${document.getElementById('peso').value} ${document.getElementById('unidadPeso').value}</td></tr>
+    <tr><td><strong>Producto:</strong></td><td>${document.getElementById('producto').value}</td></tr>
+    <tr><td><strong>Próxima desparasitación:</strong></td><td>${document.getElementById('proxDesp').value}</td></tr>
     `;
-  } else if (tipo === "desparasitacion") {
-    contenido.innerHTML += `
-      <h3 style="margin-top:30px;">Desparasitación</h3>
-      <table border="1" cellspacing="0" cellpadding="6" width="100%">
-        <tr><th>Fecha</th><th>Peso</th><th>Producto</th><th>Próxima Cita</th></tr>
-        <tr>
-          <td>${document.getElementById("desp_fecha").value}</td>
-          <td>${document.getElementById("desp_peso").value}</td>
-          <td>${document.getElementById("desp_producto").value}</td>
-          <td>${document.getElementById("desp_proxima").value}</td>
-        </tr>
-      </table>
-    `;
-  }
+  container.appendChild(table);
 
-  contenido.innerHTML += `
-    <div style="text-align:center; margin-top:40px;">
-      <img src="firma.png" style="height:80px;" />
-      <p><strong>Melanie Nicola Tomalá</strong><br/>Médico Veterinario</p>
-    </div>
-  `;
+  const firma = document.createElement('div');
+  firma.style.marginTop = '30px';
+  firma.style.textAlign = 'center';
 
-  html2pdf().set({
-    margin: 0,
-    filename: `Carnet_${tipo}_${nombre}.pdf`,
-    image: { type: 'jpeg', quality: 1.0 },
-    html2canvas: { scale: 2, scrollY: 0 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  }).from(contenido).save();
+  const firmaImg = document.createElement('img');
+  firmaImg.src = 'firma.png';
+  firmaImg.style.width = '150px';
+  firma.appendChild(firmaImg);
+
+  const nombre = document.createElement('p');
+  nombre.innerText = 'Melanie Nicola Tomala – Médico Veterinario';
+  firma.appendChild(nombre);
+
+  container.appendChild(firma);
+  pdf.appendChild(container);
+
+  html2pdf().from(pdf).set({
+    margin: 0.5,
+    filename: tipo + '_registro.pdf',
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+  }).save();
 }
