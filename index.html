@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Registro de Vacunación / Desparasitación</title>
+  <title>Carnet Veterinario</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" alt="Logo" class="logo" />
-    <h1>Registro de Vacunación / Desparasitación</h1>
+    <img src="logo.png" alt="Logo Vitavet" class="logo" />
+    <h1>Carnet Veterinario</h1>
 
     <div class="selector">
-      <label for="tipo">Selecciona el tipo de reporte:</label>
+      <label for="tipo">Tipo de reporte:</label>
       <select id="tipo" onchange="mostrarFormulario()">
         <option value="">-- Seleccionar --</option>
         <option value="vacunacion">Vacunación</option>
@@ -21,6 +21,7 @@
     </div>
 
     <form id="formulario" onsubmit="generarPDF(); return false;">
+      <!-- Vacunación -->
       <div id="formulario-vacunacion" class="formulario-tipo">
         <label>Fecha:</label>
         <input type="date" id="fechaVac" required />
@@ -32,16 +33,19 @@
         <input type="date" id="proxVac" required />
       </div>
 
+      <!-- Desparasitación -->
       <div id="formulario-desparasitacion" class="formulario-tipo">
         <label>Fecha:</label>
         <input type="date" id="fechaDesp" required />
 
         <label>Peso:</label>
-        <input type="number" id="peso" placeholder="Ej: 5.5" required />
-        <select id="unidadPeso">
-          <option value="kg">kg</option>
-          <option value="lb">lb</option>
-        </select>
+        <div class="peso-group">
+          <input type="number" id="peso" placeholder="Ej: 5.5" required />
+          <select id="unidadPeso">
+            <option value="kg">kg</option>
+            <option value="lb">lb</option>
+          </select>
+        </div>
 
         <label>Producto desparasitante:</label>
         <input type="text" id="producto" required />
@@ -50,7 +54,7 @@
         <input type="date" id="proxDesp" required />
       </div>
 
-      <button type="submit">Generar PDF</button>
+      <button type="submit" class="btn-generar">Generar PDF</button>
     </form>
   </div>
 
