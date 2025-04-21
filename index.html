@@ -1,39 +1,227 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Carnet Veterinario PDF</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f7fa;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .logo {
+      display: block;
+      margin: auto;
+      width: 100px;
+    }
+    h1 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 30px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .section-title {
+      background: #e8f5e9;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      border-left: 5px solid #66bb6a;
+      margin: 25px 0 10px;
+      color: #2e7d32;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 100%;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #388e3c;
+    }
+    .loading {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+    .loading-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .spinner {
+      border: 5px solid #ccc;
+      border-top: 5px solid #4CAF50;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" class="logo" />
+    <img src="logo.png" class="logo">
     <h1>Registro Clínico Veterinario</h1>
 
-    <div class="form-group"><label>Especie:</label><input type="text" id="especie" /></div>
-    <div class="form-group"><label>Nombre del animal:</label><input type="text" id="nombre" /></div>
-    <div class="form-group"><label>Sexo:</label><input type="text" id="sexo" /></div>
-    <div class="form-group"><label>Edad:</label><input type="text" id="edad" /></div>
-    <div class="form-group"><label>Propietario:</label><input type="text" id="propietario" /></div>
-    <div class="form-group"><label>Teléfono:</label><input type="text" id="telefono" /></div>
-    <div class="form-group"><label>Dirección:</label><input type="text" id="direccion" /></div>
+    <div class="form-group"><label>Especie:</label><select id="especie"><option>Canino</option><option>Felino</option></select></div>
+    <div class="form-group"><label>Nombre del animal:</label><input type="text" id="nombre"></div>
+    <div class="form-group"><label>Sexo:</label><select id="sexo"><option>Macho</option><option>Hembra</option></select></div>
+    <div class="form-group">
+      <label>Edad:</label>
+      <div style="display: flex; gap: 10px;">
+        <input type="number" id="edad">
+        <select id="unidadEdad">
+          <option>años</option>
+          <option>meses</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label>Propietario:</label><input type="text" id="propietario"></div>
+    <div class="form-group"><label>Teléfono:</label><input type="text" id="telefono"></div>
+    <div class="form-group"><label>Dirección:</label><input type="text" id="direccion"></div>
 
     <div class="section-title">VACUNACIÓN</div>
-    <div class="form-group"><label>Fecha:</label><input type="date" id="fechaVac" /></div>
-    <div class="form-group"><label>Vacunas:</label><input type="text" id="vacunas" /></div>
-    <div class="form-group"><label>Próxima vacunación:</label><input type="date" id="proxVac" /></div>
+    <div class="form-group"><label>Fecha:</label><input type="date" id="fechaVac"></div>
+    <div class="form-group"><label>Vacunas:</label><input type="text" id="vacunas"></div>
+    <div class="form-group"><label>Próxima vacunación:</label><input type="date" id="proxVac"></div>
 
     <div class="section-title">DESPARASITACIÓN</div>
-    <div class="form-group"><label>Fecha:</label><input type="date" id="fechaDesp" /></div>
-    <div class="form-group"><label>Peso:</label><input type="text" id="peso" /></div>
-    <div class="form-group"><label>Producto desparasitante:</label><input type="text" id="producto" /></div>
-    <div class="form-group"><label>Próxima desparasitación:</label><input type="date" id="proxDesp" /></div>
+    <div class="form-group"><label>Fecha:</label><input type="date" id="fechaDesp"></div>
+    <div class="form-group"><label>Peso:</label><input type="text" id="peso"><select id="unidadPeso"><option>kg</option><option>lb</option></select></div>
+    <div class="form-group"><label>Producto desparasitante:</label><input type="text" id="producto"></div>
+    <div class="form-group"><label>Próxima desparasitación:</label><input type="date" id="proxDesp"></div>
 
     <button onclick="generarPDF()">Generar PDF</button>
   </div>
 
-  <script src="script.js"></script>
+  <div class="loading" id="loading">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p id="loading-text">Generando PDF...</p>
+    </div>
+  </div>
+
+  <script>
+    async function generarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const logo = await loadImage("logo.png");
+      const firma = await loadImage("firma_2.png");
+      const nombre = get('nombre');
+      const edad = get('edad') + ' ' + get('unidadEdad');
+      const fechaActual = new Date().toLocaleDateString();
+
+      document.getElementById('loading-text').innerText = `Generando PDF del paciente ${nombre}...`;
+      document.getElementById('loading').style.display = 'flex';
+
+      setTimeout(() => {
+        doc.addImage(logo, "PNG", 85, 10, 40, 40);
+        doc.setFontSize(12);
+        doc.text(`Fecha: ${fechaActual}`, 160, 15, { align: 'right' });
+
+        doc.setFontSize(16);
+        doc.text("REGISTRO DE VACUNAS/DESPARASITACIÓN", 105, 60, { align: 'center' });
+
+        doc.setFontSize(10);
+        doc.text(`ESPECIE: ${get('especie')}   SEXO: ${get('sexo')}   PROPIETARIO: ${get('propietario')}`, 105, 70, { align: 'center' });
+        doc.text(`NOMBRE: ${nombre}   EDAD: ${edad}   TELÉFONO: ${get('telefono')}`, 105, 77, { align: 'center' });
+        doc.text(`DIRECCIÓN: ${get('direccion')}`, 105, 84, { align: 'center' });
+
+        doc.setFontSize(12);
+        doc.text("VACUNACIÓN", 105, 95, { align: 'center' });
+        doc.autoTable({
+          startY: 98,
+          theme: 'grid',
+          head: [["FECHA", "VACUNAS", "PRÓX. VAC."]],
+          body: [[get('fechaVac'), get('vacunas'), get('proxVac')]],
+          styles: { halign: 'center', fontSize: 10 },
+          margin: { left: 30, right: 30 }
+        });
+
+        const yDesp = doc.lastAutoTable.finalY + 10;
+        doc.text("DESPARASITACIÓN", 105, yDesp, { align: 'center' });
+        doc.autoTable({
+          startY: yDesp + 3,
+          theme: 'grid',
+          head: [["FECHA", "PESO", "PRODUCTO", "PRÓX. DESP."]],
+          body: [[get('fechaDesp'), get('peso') + ' ' + get('unidadPeso'), get('producto'), get('proxDesp')]],
+          styles: { halign: 'center', fontSize: 10 },
+          margin: { left: 15, right: 15 }
+        });
+
+        const yFirma = doc.lastAutoTable.finalY + 15;
+        doc.addImage(firma, "PNG", 85, yFirma, 40, 15);
+        doc.setFontSize(11);
+        doc.text("Melanie Nicola Tomala", 105, yFirma + 20, { align: 'center' });
+        doc.setFontSize(10);
+        doc.text("Médico Veterinario", 105, yFirma + 26, { align: 'center' });
+
+        doc.save(`carnet_${nombre}.pdf`);
+        document.getElementById('loading').style.display = 'none';
+      }, 5000);
+    }
+
+    function get(id) {
+      return document.getElementById(id).value || '';
+    }
+
+    function loadImage(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL("image/png"));
+        };
+        img.onerror = reject;
+        img.src = url;
+      });
+    }
+  </script>
 </body>
 </html>
