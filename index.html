@@ -2,137 +2,71 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Carnet Veterinario PDF</title>
+  <title>SystemPets - Reportes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f7fa;
-      padding: 20px;
-      margin: 0;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    .logo {
-      display: block;
-      margin: auto;
-      width: 120px;
-    }
-    h1 {
-      text-align: center;
-      color: #2e7d32;
-      margin-bottom: 30px;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 5px;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    .section-title {
-      background: #e8f5e9;
-      padding: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      border-left: 5px solid #66bb6a;
-      margin: 25px 0 10px;
-      color: #2e7d32;
-    }
-    button {
-      background: #4CAF50;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      width: 100%;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #388e3c;
-    }
-    .loading {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      display: none;
-    }
-    .loading-content {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-    }
-    .spinner {
-      border: 5px solid #ccc;
-      border-top: 5px solid #4CAF50;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    body { font-family: 'Segoe UI', sans-serif; background: #f4f7fa; padding: 20px; margin: 0; }
+    .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+    .logo { display: block; margin: auto; width: 120px; }
+    h1, h2 { text-align: center; color: #2e7d32; }
+    .form-group { margin-bottom: 15px; }
+    label { font-weight: bold; display: block; margin-bottom: 5px; }
+    input, select, textarea { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; }
+    .section-title { background: #e8f5e9; padding: 10px; font-size: 16px; font-weight: bold; border-left: 5px solid #66bb6a; margin: 25px 0 10px; color: #2e7d32; }
+    button { background: #4CAF50; color: white; padding: 12px; border: none; border-radius: 8px; font-size: 16px; width: 100%; cursor: pointer; }
+    button:hover { background: #388e3c; }
+    .hidden { display: none; }
+    .center-select { text-align: center; margin-bottom: 30px; }
+    .loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 9999; display: none; }
+    .loading-content { background: white; padding: 20px; border-radius: 10px; text-align: center; }
+    .spinner { border: 5px solid #ccc; border-top: 5px solid #4CAF50; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: auto; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <div class="container">
     <img src="logo.png" class="logo">
-    <h1>Registro Clínico Veterinario</h1>
-
-    <div class="form-group"><label>Especie:</label><select id="especie"><option>Canino</option><option>Felino</option></select></div>
-    <div class="form-group"><label>Nombre del animal:</label><input type="text" id="nombre"></div>
-    <div class="form-group"><label>Sexo:</label><select id="sexo"><option>Macho</option><option>Hembra</option></select></div>
-    <div class="form-group">
-      <label>Edad:</label>
-      <div style="display: flex; gap: 10px;">
-        <input type="number" id="edad">
-        <select id="unidadEdad">
-          <option>años</option>
-          <option>meses</option>
-        </select>
-      </div>
+    <h1>SystemPets</h1>
+    <div id="selectorInicial" class="center-select">
+      <h2>Selecciona el tipo de reporte</h2>
+      <select id="tipoReporte" onchange="mostrarFormulario()">
+        <option value="">-- Elegir reporte --</option>
+        <option value="vacunacion">Vacunación</option>
+        <option value="desparasitacion">Desparasitación</option>
+        <option value="recetario">Recetario</option>
+      </select>
     </div>
-    <div class="form-group"><label>Propietario:</label><input type="text" id="propietario"></div>
-    <div class="form-group"><label>Teléfono (WhatsApp):</label><input type="text" id="telefono"></div>
-    <div class="form-group"><label>Dirección:</label><input type="text" id="direccion"></div>
-
-    <div class="section-title">VACUNACIÓN</div>
-    <div class="form-group"><label>Fecha:</label><input type="date" id="fechaVac"></div>
-    <div class="form-group"><label>Vacunas:</label><input type="text" id="vacunas"></div>
-    <div class="form-group"><label>Próxima vacunación:</label><input type="date" id="proxVac"></div>
-
-    <div class="section-title">DESPARASITACIÓN</div>
-    <div class="form-group"><label>Fecha:</label><input type="date" id="fechaDesp"></div>
-    <div class="form-group"><label>Peso:</label><input type="text" id="peso"><select id="unidadPeso"><option>kg</option><option>lb</option></select></div>
-    <div class="form-group"><label>Producto desparasitante:</label><input type="text" id="producto"></div>
-    <div class="form-group"><label>Próxima desparasitación:</label><input type="date" id="proxDesp"></div>
-
-    <button onclick="generarPDF()">Generar PDF</button>
+    <form id="formularioGeneral" class="hidden">
+      <div class="form-group"><label>Especie:</label><select id="especie"><option>Canino</option><option>Felino</option></select></div>
+      <div class="form-group"><label>Nombre del animal:</label><input type="text" id="nombre"></div>
+      <div class="form-group"><label>Sexo:</label><select id="sexo"><option>Macho</option><option>Hembra</option></select></div>
+      <div class="form-group"><label>Edad:</label><div style="display: flex; gap: 10px;"><input type="number" id="edad"><select id="unidadEdad"><option>años</option><option>meses</option></select></div></div>
+      <div class="form-group"><label>Propietario:</label><input type="text" id="propietario"></div>
+      <div class="form-group"><label>Teléfono:</label><input type="text" id="telefono"></div>
+      <div class="form-group"><label>Dirección:</label><input type="text" id="direccion"></div>
+      <div id="formVacunacion" class="hidden">
+        <div class="section-title">VACUNACIÓN</div>
+        <div class="form-group"><label>Fecha:</label><input type="date" id="fechaVac"></div>
+        <div class="form-group"><label>Vacuna aplicada:</label><input type="text" id="vacunas"></div>
+        <div class="form-group"><label>Próxima vacuna:</label><input type="date" id="proxVac"></div>
+        <button type="button" onclick="generarPDF('vacunacion')">Generar PDF</button>
+      </div>
+      <div id="formDesparasitacion" class="hidden">
+        <div class="section-title">DESPARASITACIÓN</div>
+        <div class="form-group"><label>Fecha:</label><input type="date" id="fechaDesp"></div>
+        <div class="form-group"><label>Peso:</label><input type="text" id="peso"><select id="unidadPeso"><option>kg</option><option>lb</option></select></div>
+        <div class="form-group"><label>Producto desparasitante:</label><input type="text" id="producto"></div>
+        <div class="form-group"><label>Próxima desparasitación:</label><input type="date" id="proxDesp"></div>
+        <button type="button" onclick="generarPDF('desparasitacion')">Generar PDF</button>
+      </div>
+      <div id="formRecetario" class="hidden">
+        <div class="section-title">RECETARIO</div>
+        <div class="form-group"><label>Diagnóstico:</label><textarea id="diagnostico"></textarea></div>
+        <button type="button" onclick="generarPDF('recetario')">Generar Receta</button>
+      </div>
+    </form>
   </div>
 
   <div class="loading" id="loading">
@@ -143,72 +77,79 @@
   </div>
 
   <script>
-    async function generarPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      const logo = await loadImage("logo.png");
-      const firma = await loadImage("firma_2.png");
-      const nombre = get('nombre');
-      const edad = get('edad') + ' ' + get('unidadEdad');
-      const fechaActual = new Date().toLocaleDateString();
-      const telefono = get('telefono').replace(/[^\d]/g, '');
-      const numero = `593${telefono.slice(-9)}`; // Ecuador format
+    function mostrarFormulario() {
+      const tipo = document.getElementById('tipoReporte').value;
+      document.getElementById('formularioGeneral').classList.remove('hidden');
+      ['formVacunacion', 'formDesparasitacion', 'formRecetario'].forEach(id => document.getElementById(id).classList.add('hidden'));
+      if (tipo === 'vacunacion') document.getElementById('formVacunacion').classList.remove('hidden');
+      if (tipo === 'desparasitacion') document.getElementById('formDesparasitacion').classList.remove('hidden');
+      if (tipo === 'recetario') document.getElementById('formRecetario').classList.remove('hidden');
+      document.getElementById('selectorInicial').classList.add('hidden');
+    }
 
-      document.getElementById('loading-text').innerText = `Generando PDF del paciente ${nombre}...`;
+    async function generarPDF(tipo) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: tipo === 'recetario' ? 'landscape' : 'portrait' });
+      const logo = await loadImage("logo.png");
+      const nombre = document.getElementById('nombre').value;
+      const edad = document.getElementById('edad').value + ' ' + document.getElementById('unidadEdad').value;
+      const fechaActual = new Date().toLocaleDateString();
+      const telefono = document.getElementById('telefono').value;
+      const direccion = document.getElementById('direccion').value;
+      const diagnostico = document.getElementById('diagnostico').value;
+
+      document.getElementById('loading-text').innerText = tipo === 'vacunacion' ? `Generando reporte de vacunación de ${nombre}` : tipo === 'desparasitacion' ? `Generando reporte de desparasitación de ${nombre}` : `Generando recetario de ${nombre}`;
       document.getElementById('loading').style.display = 'flex';
 
       setTimeout(() => {
-        doc.addImage(logo, "PNG", 85, 10, 40, 40);
-        doc.setFontSize(12);
-        doc.text(`Fecha: ${fechaActual}`, 160, 15, { align: 'right' });
-
-        doc.setFontSize(16);
-        doc.text("REGISTRO DE VACUNAS/DESPARASITACIÓN", 105, 60, { align: 'center' });
-
-        doc.setFontSize(10);
-        doc.text(`ESPECIE: ${get('especie')}   SEXO: ${get('sexo')}   PROPIETARIO: ${get('propietario')}`, 105, 70, { align: 'center' });
-        doc.text(`NOMBRE: ${nombre}   EDAD: ${edad}   TELÉFONO: ${telefono}`, 105, 77, { align: 'center' });
-        doc.text(`DIRECCIÓN: ${get('direccion')}`, 105, 84, { align: 'center' });
-
-        doc.setFontSize(12);
-        doc.text("VACUNACIÓN", 105, 95, { align: 'center' });
-        doc.autoTable({
-          startY: 98,
-          theme: 'grid',
-          head: [["FECHA", "VACUNAS", "PRÓX. VAC."]],
-          body: [[get('fechaVac'), get('vacunas'), get('proxVac')]],
-          styles: { halign: 'center', fontSize: 10 },
-          margin: { left: 30, right: 30 }
-        });
-
-        const yDesp = doc.lastAutoTable.finalY + 10;
-        doc.text("DESPARASITACIÓN", 105, yDesp, { align: 'center' });
-        doc.autoTable({
-          startY: yDesp + 3,
-          theme: 'grid',
-          head: [["FECHA", "PESO", "PRODUCTO", "PRÓX. DESP."]],
-          body: [[get('fechaDesp'), get('peso') + ' ' + get('unidadPeso'), get('producto'), get('proxDesp')]],
-          styles: { halign: 'center', fontSize: 10 },
-          margin: { left: 15, right: 15 }
-        });
-
-        const yFirma = doc.lastAutoTable.finalY + 15;
-        doc.addImage(firma, "PNG", 85, yFirma, 40, 15);
-        doc.setFontSize(11);
-        doc.text("Melanie Nicola Tomala", 105, yFirma + 20, { align: 'center' });
-        doc.setFontSize(10);
-        doc.text("Médico Veterinario", 105, yFirma + 26, { align: 'center' });
-
-        doc.save(`carnet_${nombre}.pdf`);
+        if (tipo === 'recetario') {
+          doc.setGState(new doc.GState({ opacity: 0.1 }));
+          doc.addImage(logo, 'PNG', 110, 60, 80, 80);
+          doc.setGState(new doc.GState({ opacity: 1 }));
+          doc.setFontSize(22);
+          doc.setTextColor(46, 125, 50);
+          doc.addImage(logo, 'PNG', 10, 8, 25, 25);
+          doc.text("VITAVET", 40, 20);
+          doc.setFontSize(12);
+          doc.text("Servicios Veterinarios", 40, 27);
+          doc.setDrawColor(76, 175, 80);
+          doc.setLineWidth(1);
+          doc.line(10, 32, 287, 32);
+          doc.setFontSize(11);
+          doc.setTextColor(0);
+          doc.text(`Paciente: ${nombre}`, 20, 45);
+          doc.text(`Edad: ${edad}`, 180, 45);
+          doc.text(`Diagnóstico: ${diagnostico}`, 20, 55);
+          doc.text(`Fecha: ${fechaActual}`, 180, 55);
+          doc.setTextColor(46, 125, 50);
+          doc.setFontSize(26);
+          doc.text("Rx", 20, 90);
+          doc.setFillColor(76, 175, 80);
+          doc.rect(10, 180, 270, 20, 'F');
+          doc.setFontSize(12);
+          doc.setTextColor(255);
+          doc.text("Celular: 0981014767", 20, 193);
+          doc.text("Dirección: La Rioja", 110, 193);
+          doc.text("Correo: clinicavitavet@correo.com", 190, 193);
+        } else {
+          doc.addImage(logo, "PNG", 85, 10, 40, 40);
+          doc.setFontSize(16);
+          doc.text(tipo === 'vacunacion' ? "REGISTRO DE VACUNACIÓN" : "REGISTRO DE DESPARASITACIÓN", 105, 60, { align: 'center' });
+          doc.setFontSize(10);
+          doc.text(`Paciente: ${nombre} | Edad: ${edad} | Teléfono: ${telefono} | Dirección: ${direccion}`, 105, 70, { align: 'center' });
+          if (tipo === 'vacunacion') {
+            doc.autoTable({ startY: 85, theme: 'grid', head: [["FECHA", "VACUNAS", "PRÓX. VAC."]], body: [[document.getElementById('fechaVac').value, document.getElementById('vacunas').value, document.getElementById('proxVac').value]], styles: { halign: 'center', fontSize: 10 } });
+          } else {
+            doc.autoTable({ startY: 85, theme: 'grid', head: [["FECHA", "PESO", "PRODUCTO", "PRÓX. DESP."]], body: [[document.getElementById('fechaDesp').value, document.getElementById('peso').value + ' ' + document.getElementById('unidadPeso').value, document.getElementById('producto').value, document.getElementById('proxDesp').value]], styles: { halign: 'center', fontSize: 10 } });
+          }
+          const yFirma = doc.lastAutoTable.finalY + 10;
+          doc.addImage("firma_2.png", "PNG", 85, yFirma, 40, 15);
+          doc.text("Melanie Nicola Tomala", 105, yFirma + 20, { align: 'center' });
+          doc.text("Médico Veterinario", 105, yFirma + 26, { align: 'center' });
+        }
+        doc.save(`${tipo}_${nombre}.pdf`);
         document.getElementById('loading').style.display = 'none';
-
-        const mensaje = `Hola, estimado cliente. El reporte clínico de su mascota ${nombre} ha sido generado con éxito por nuestra clínica Vitavet. ¡Gracias por confiar en nosotros!`;
-        window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`, '_blank');
       }, 5000);
-    }
-
-    function get(id) {
-      return document.getElementById(id).value || '';
     }
 
     function loadImage(url) {
